@@ -1,26 +1,37 @@
 import React, { useContext } from "react";
-import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import logo from "../../img/logomm.png";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
+import { Link } from "react-router-dom";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+  return (
+    <div className="container">
+      <div className="d-flex">
+        <div className="texthome w-50">
+          <h2>
+            Encuentra los mejores profesionales que mejor se adaptan a las
+            necesidades de tu empresa
+          </h2>
+          <p className="pt-5">
+            <b>market match</b> te ayuda a encontrar trabajadores por horas que
+            mejor se adapten a tus necesidas y si eres un <b>freelance</b>{" "}
+            buscando trabajar para una empreza calificada, este es tu lugar
+          </p>
+          <div className="d-grid col-6">
+            <Link to="/signup">
+              <button type="button" className="btn btn-default">
+                Resgistrate Aquí
+              </button>
+            </Link>
+          </div>
+        </div>
+        <div className="d-flex w-50">
+          <img src={logo} className="imagehome" alt="..." />
+        </div>
+      </div>
+    </div>
+  );
 };

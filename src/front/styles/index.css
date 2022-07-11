@@ -1,3 +1,51 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+body {
+  background-color: rgb(255, 255, 255);
+}
+
+img {
+  border-radius: 20px;
+}
+
+.texthome {
+  margin-top: 200px;
+  padding-right: 100px;
+}
+
+.imagehome {
+  height: 500px;
+  width: 900px;
+  margin-top: 100px;
+}
+
+.logodesign {
+  height: 50px;
+  width: 50px;
+}
+.logomain {
+  height: 100px;
+  width: 100px;
+  margin-left: 100px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  position: relative;
+}
+
+.maintext {
+  justify-content: center;
+}
+
+.logonav {
+  height: 50px;
+  width: 50px;
+  margin-right: 50px;
+  margin-left: 20px;
+}
+
+.btn-default {
+  background-color: yellow;
+  border-color: black;
+}
