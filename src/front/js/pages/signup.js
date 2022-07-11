@@ -10,7 +10,7 @@ export const Signup = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
+  const [pais, setPais] = useState("");
   const onSubmit = () => {
     alert(password);
   };
@@ -41,15 +41,6 @@ export const Signup = () => {
             <div>
               <input
                 type={"text"}
-                placeholder="Teléfono"
-                required
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-            </div>
-            <div>
-              <input
-                type={"text"}
                 placeholder="Dirección"
                 required
                 value={address}
@@ -63,6 +54,45 @@ export const Signup = () => {
                 required
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+              />
+            </div>
+            <div>
+                <select
+                className="form-control"
+                id="pais"
+                required
+                placeholder="País"
+                onChange={(e) => setPais(e.target.value)}
+              >
+                <option value="" selected disabled className="defaultOption">Código de País</option>
+                <option value="CO">Colombia (+57)</option>
+                <option value="AR">Argentina (+54)</option>
+                <option value="UR">Uruguay</option>
+                <option value="BR">Brasil (+55)</option>
+                <option value="PA">Paraguay</option>
+                <option value="CH">Chile (+56)</option>
+                <option value="PE">Perú (+51)</option>
+                <option value="VE">Venezuela</option>
+                <option value="PA">Panamá</option>
+                <option value="NI">Nicaragua</option>
+                <option value="CR">Costa Rica (+506)</option>
+                <option value="SA">Salvador</option>
+                <option value="GU">Guatemala</option>
+                <option value="MX">México (+52)</option>
+                <option value="EU">Estados Unidos</option>
+                <option value="CU">Cuba</option>
+                <option value="RD">República Dominicana</option>
+                <option value="HA">Haití</option>
+                <option value="JA">Jamaica</option>
+              </select>
+            </div>
+            <div>
+              <input
+                type={"text"}
+                placeholder="Teléfono"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               />
             </div>
             <div>
