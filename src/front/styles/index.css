@@ -46,6 +46,19 @@ img {
 }
 
 .btn-default {
-  background-color: yellow;
+  background-color: black;
   border-color: black;
+}
+
+.empresas {
+  margin-top: 100px;
+}
+
+i {
+  padding: 20px;
+  padding-top: 50px;
+}
+
+#carouselExampleCaptions {
+  margin-top: 100px;
 }
