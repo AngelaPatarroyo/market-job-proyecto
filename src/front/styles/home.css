@@ -17,3 +17,7 @@ select:required:invalid {
 input{
     padding:0.2rem
 }
+#isFreelancer{
+    width:min-content;
+    margin:auto;    
+}

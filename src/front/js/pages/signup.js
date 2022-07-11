@@ -10,17 +10,45 @@ export const Signup = () => {
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
+  const [isFreelancer, setIsFreelancer] = useState("");
+  const [isEmpresa, setIsEmpresa] = useState("");
   const [pais, setPais] = useState("");
   const onSubmit = () => {
     alert(password);
   };
 
   return (
+    <div className="position-absolute top-50 start-50 translate-middle">
     <div className="text-center mt-5">
-      <h1>Registro</h1>
+      <h1>Regístrate</h1>
       <div>
-        <div>
+        <div className="d-flex">
           <form onSubmit={onSubmit}>
+            <div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault1"
+                />
+                <label className="form-check-label" for="flexRadioDefault1">
+                  Freelancer
+                </label>
+              </div>
+              <div className="form-check">
+                <input
+                  className="form-check-input"
+                  type="radio"
+                  name="flexRadioDefault"
+                  id="flexRadioDefault2"
+                  checked
+                />
+                <label className="form-check-label" for="flexRadioDefault2">
+                  Empresa
+                </label>
+              </div>
+            </div>
             <div>
               <input
                 type={"email"}
@@ -57,17 +85,19 @@ export const Signup = () => {
               />
             </div>
             <div>
-                <select
+              <select
                 className="form-control"
                 id="pais"
                 required
                 placeholder="País"
                 onChange={(e) => setPais(e.target.value)}
               >
-                <option value="" selected disabled className="defaultOption">Código de País</option>
+                <option value="" selected disabled className="defaultOption">
+                  Código de País
+                </option>
                 <option value="CO">Colombia (+57)</option>
                 <option value="AR">Argentina (+54)</option>
-                <option value="UR">Uruguay</option>
+                <option value="UR">Uruguay (+598)</option>
                 <option value="BR">Brasil (+55)</option>
                 <option value="PA">Paraguay</option>
                 <option value="CH">Chile (+56)</option>
@@ -101,6 +131,7 @@ export const Signup = () => {
           </form>
         </div>
       </div>
+    </div>
     </div>
   );
 };
