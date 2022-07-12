@@ -93,7 +93,7 @@ export const Home = () => {
               </div>
 
               <button
-                className="carousel-control-prev"
+                className="carousel-control-prev position-absolute"
                 type="button"
                 data-bs-target="#carouselExampleCaptions"
                 data-bs-slide="prev"
