@@ -7,8 +7,23 @@ export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const onSubmit = () => {
-    alert(password);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      correo: email,
+      contrasena: password,
+    };
+
+    console.log(body);
+
+    actions
+      .login(body)
+      .then((resp) => {
+        console.log(resp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
