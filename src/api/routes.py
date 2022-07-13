@@ -71,3 +71,46 @@ def handle_login():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/get_tipos_freelancer', methods=['GET'])
+def get_tipos():
+    all_tipos_freelancer_query = TipoFreelancer.query.all()
+    all_tipos_freelancer = list(map(lambda x: x.serialize(), all_tipos_freelancer_query))
+    return jsonify(all_tipos_freelancer), 200
+
+@api.route('/get_idiomas', methods=['GET'])
+def get_idiomas():
+    all_idiomas_query = Idiomas.query.all()
+    all_idiomas = list(map(lambda x: x.serialize(), all_idiomas_query))
+    return jsonify(all_idiomas), 200
+
+@api.route('/get_experiencias', methods=['GET'])
+def get_experiencias():
+    all_experiencias_query = Experiencia.query.all()
+    all_experiencias = list(map(lambda x: x.serialize(), all_experiencias_query))
+    return jsonify(all_experiencias), 200
+
+@api.route('/completarperfil', methods=['POST'])
+def completa_perfil():
+
+    usuario_id = request.json.get("usuario_id", None)
+    tipo_freelancer = request.json.get("tipo_freelancer", None)
+    descripcion = request.json.get("descripcion", None)
+    imagen = request.json.get("imagen", None)
+    linkedin = request.json.get("linkedin", None)
+    portafolio = request.json.get("portafolio", None)
+    # idioma = request.json.get("idioma", None)
+    tarifa = request.json.get("tarifa", None)
+    experiencia_id = request.json.get("experiencia_id", None)
+
+    perfil_nuevo = PerfilFreelancer(tipo_freelancer=int(tipo_freelancer), usuario_id=int(usuario_id), descripcion=descripcion, imagen=imagen, linkedin=linkedin, portafolio=portafolio, tarifa=tarifa, experiencia_id=int(experiencia_id)  )
+    db.session.add(perfil_nuevo)
+    db.session.commit()
+    respuesta = {
+        "msg" : "perfil completado exitosamente"
+    }
+    return jsonify(respuesta), 200
+
+    
+
+   
