@@ -52,6 +52,24 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
 
+      signup: async (body) => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
+            method: "POST",
+            registro: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await resp.json();
+
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
+
       changeColor: (index, color) => {
         //get the store
         const store = getStore();
