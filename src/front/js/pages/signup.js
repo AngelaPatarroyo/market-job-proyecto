@@ -18,7 +18,7 @@ export const Signup = () => {
   };
 
   return (
-    <div className="position-absolute top-50 start-50 translate-middle">
+    <div className="d-flex justify-content-center">
     <div className="text-center mt-5">
       <h1>Regístrate</h1>
       <div>
