@@ -64,8 +64,10 @@ def handle_login():
     
     response_body = {
         "msg": "bienvenido",
-        "Rol": usuario_query.rol,
-        "accessToken": access_token
+        "rol": usuario_query.rol,
+        "accessToken": access_token,
+        "nombre": usuario_query.nombre
+
     }
 
     return jsonify(response_body), 200
