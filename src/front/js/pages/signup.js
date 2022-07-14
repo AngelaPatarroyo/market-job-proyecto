@@ -41,13 +41,16 @@ export const Signup = () => {
 
   return (
     <div className="d-flex justify-content-center" id="contenedor">
-      <div className="text-center mt-5 bg-white d-flex justify-content-center" id="con2">
+      <div className="text-center mt-4 bg-white mb-5 p-5" id="con2">
         <h1>Regístrate</h1>
-        <div style={{width:"500px", height:"1000px"}} className="position-relative">
+        <div className="position-relative">
           <div className="d-flex w-100 m-5">
-            <form onSubmit={onSubmit}>
+            <form
+              style={{ width: "500px", height: "600px" }}
+              onSubmit={onSubmit}
+            >
               <div>
-                <img src={signup} style={{width:"210px", height:"210px"}}/>
+                <img src={signup} style={{ width: "210px", height: "210px" }} />
               </div>
               <div>
                 {store?.roles.map((rol) => {
@@ -70,8 +73,9 @@ export const Signup = () => {
                   );
                 })}
               </div>
-              <div className="m-3">
-                <input className="w-100"
+              <div className="mt-3">
+                <input
+                  className="w-75"
                   type={"email"}
                   placeholder="Correo electrónico"
                   required
@@ -79,8 +83,9 @@ export const Signup = () => {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <div>
+              <div className="mt-3">
                 <input
+                  className="w-75"
                   type={"password"}
                   required
                   placeholder="Contraseña"
@@ -88,8 +93,9 @@ export const Signup = () => {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
-              <div className="m-3">
+              <div className="mt-3">
                 <input
+                  className="w-75"
                   type={"text"}
                   placeholder="Dirección"
                   required
@@ -97,8 +103,9 @@ export const Signup = () => {
                   onChange={(e) => setAddress(e.target.value)}
                 />
               </div>
-              <div className="m-3">
+              <div className="mt-3">
                 <input
+                  className="w-75"
                   type={"text"}
                   placeholder="Ciudad"
                   required
@@ -106,9 +113,9 @@ export const Signup = () => {
                   onChange={(e) => setCity(e.target.value)}
                 />
               </div>
-              <div className="m-3">
+              <div className="mt-3">
                 <select
-                  className="form-control"
+                  className="form-control w-75"
                   id="pais"
                   value={pais}
                   required
@@ -139,8 +146,9 @@ export const Signup = () => {
                   <option value="+202">Estados Unidos</option>
                 </select>
               </div>
-              <div className="m-3">
+              <div className="mt-3">
                 <input
+                  className="w-75"
                   type={"text"}
                   placeholder="Teléfono"
                   required
@@ -150,7 +158,7 @@ export const Signup = () => {
               </div>
               <div>
                 <button
-                  className="text-white bg-black"
+                  className="text-white bg-black mt-5 w-25"
                   type="submit"
                   id="submit"
                 >
