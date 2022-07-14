@@ -14,10 +14,21 @@ select:required:invalid {
   color: #666;
 }
 
-input{
-    padding:0.2rem
+input {
+  padding: 0.2rem;
 }
-#isFreelancer{
-    width:min-content;
-    margin:auto;    
+#isFreelancer {
+  width: min-content;
+  margin: auto;
+}
+#codigo {
+  border-color: rgb(0, 0, 0);
+  outline-color: black;
+}
+#submit {
+  color: black;
+}
+
+#contenedor {
+  background-color: rgb(226, 224, 224);
 }
