@@ -90,7 +90,7 @@ export const Navbar = () => {
           </div>
           <div>
             <Link to="login">
-              <button type="button" class="btn btn-dark">
+              <button type="button" className="btn btn-dark">
                 Login
               </button>
             </Link>

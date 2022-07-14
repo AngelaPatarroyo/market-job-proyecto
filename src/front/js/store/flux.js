@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           initial: "white",
         },
       ],
+      roles: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -69,7 +70,20 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
-
+      get_roles: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/get_rols", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
+          const data = await resp.json();
+          setStore({roles:data})
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
       changeColor: (index, color) => {
         //get the store
         const store = getStore();
