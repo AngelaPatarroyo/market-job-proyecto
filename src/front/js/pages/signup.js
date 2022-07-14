@@ -16,7 +16,7 @@ export const Signup = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const body = {
-      rol: city,
+      rol: 1,
       correo: email,
       contrasena: password,
       telefono: phone,
