@@ -85,15 +85,17 @@ def get_idiomas():
     return jsonify(all_idiomas), 200
 
 @api.route('/get_experiencias', methods=['GET'])
+@jwt_required()
 def get_experiencias():
     all_experiencias_query = Experiencia.query.all()
     all_experiencias = list(map(lambda x: x.serialize(), all_experiencias_query))
     return jsonify(all_experiencias), 200
 
 @api.route('/completarperfil', methods=['POST'])
+@jwt_required()
 def completa_perfil():
-
-    usuario_id = request.json.get("usuario_id", None)
+    email_user = get_jwt_identity()
+    usuario_id = Usuario.query.filter_by(correo=email_user).first().id
     tipo_freelancer = request.json.get("tipo_freelancer", None)
     descripcion = request.json.get("descripcion", None)
     imagen = request.json.get("imagen", None)
@@ -110,6 +112,14 @@ def completa_perfil():
         "msg" : "perfil completado exitosamente"
     }
     return jsonify(respuesta), 200
+
+# @api.route('/test', methods=['GET'])
+# def test():
+#     q = request.args.get("nombreparametro")
+#     print(q)
+#     busqueda = "%{}%".format(q)
+#     posts = Usuarios.query.filter(Usuario.correo.like(busqueda)).all()
+#     return jsonify([]),200
 
     
 
