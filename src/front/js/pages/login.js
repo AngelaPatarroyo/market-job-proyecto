@@ -27,43 +27,48 @@ export const Login = () => {
   };
 
   return (
-    <div
-      className="text-center mt-5 container"
-      style={{ width: "500px", height: "600px" }}
-    >
-      <h1>Login</h1>
-      <div className="p-5">
-        <img src={logo} style={{ width: "200px", height: "200px" }} />
-      </div>
-      <div>
-        <div>
-          <form onSubmit={onSubmit}>
-            <div className="mt-5 mb-3">
-              <input
-                className="w-75"
-                type={"email"}
-                placeholder="Correo electrónico"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div className="mb-5">
-              <input
-                className="w-75"
-                type={"password"}
-                required
-                placeholder="Contraseña"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+    <div id="containerlogin" className="d-flex justify-content-center">
+      <div
+        id="con3"
+        className="text-center container mt-5 mb-5 bg-white"
+        style={{ width: "500px", height: "600px" }}
+      >
+        <div className="position-relative w-100">
+          <h1 className="pt-5">Login</h1>
+
+          <img src={logo} style={{ width: "200px", height: "200px" }} />
+
+          <div>
             <div>
-              <button className="bg-black text-white w-25" type="submit">
-                Enviar
-              </button>
+              <form onSubmit={onSubmit}>
+                <div className="mt-5 mb-3">
+                  <input
+                    className="w-75"
+                    type={"email"}
+                    placeholder="Correo electrónico"
+                    required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className="mb-5">
+                  <input
+                    className="w-75"
+                    type={"password"}
+                    required
+                    placeholder="Contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button className="bg-black text-white w-25" type="submit">
+                    Enviar
+                  </button>
+                </div>
+              </form>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>

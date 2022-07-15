@@ -62,3 +62,10 @@ i {
 #carouselExampleCaptions {
   margin-top: 100px;
 }
+#containerlogin {
+  background-color: rgb(226, 224, 224);
+}
+
+#con3 {
+  box-shadow: 10px 10px 10px 10px rgb(188, 187, 187);
+}
