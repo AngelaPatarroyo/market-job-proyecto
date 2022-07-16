@@ -2,11 +2,14 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import signup from "../../img/signup.png";
 import "../../styles/home.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
+  const [msjError, setMsjError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -14,25 +17,32 @@ export const Signup = () => {
   const [isEmpresa, setIsEmpresa] = useState("");
   const [pais, setPais] = useState("");
   const [rol, setRol] = useState(0);
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const body = {
-      rol: rol,
-      correo: email,
-      contrasena: password,
-      telefono: phone,
-    };
+    setMsjError("");
+    if (password !== password2) {
+      alert("Las contraseñas no coinciden");
+    } else {
+      const body = {
+        rol: rol,
+        correo: email,
+        contrasena: password,
+        telefono: phone,
+      };
+      //actions.signup(body);
+      actions
+        .signup(body)
+        .then((resp) => {
+          console.log(resp);
+          navigate("/login")
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     console.log(body);
-
-    /*  actions
-      .signup(body)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => {
-        console.log(error);
-      }); */
   };
 
   useEffect(() => {
@@ -55,7 +65,7 @@ export const Signup = () => {
               <div>
                 {store?.roles.map((rol) => {
                   return (
-                    <div className="form-check mt-3" key={rol.id}>
+                    <div className="form-check mt-2" key={rol.id}>
                       <input
                         className="form-check-input"
                         type="radio"
@@ -91,6 +101,16 @@ export const Signup = () => {
                   placeholder="Contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mt-3">
+                <input
+                  className="w-75"
+                  type={"password"}
+                  required
+                  placeholder="Confirmar Contraseña"
+                  value={password2}
+                  onChange={(e) => setPassword2(e.target.value)}
                 />
               </div>
               <div className="mt-3">
@@ -135,15 +155,15 @@ export const Signup = () => {
                   <option value="+54">Argentina (+54)</option>
                   <option value="+598">Uruguay (+598)</option>
                   <option value="+55">Brasil (+55)</option>
-                  <option value="+595">Paraguay</option>
+                  <option value="+595">Paraguay (+595)</option>
                   <option value="+56">Chile (+56)</option>
                   <option value="+51">Perú (+51)</option>
-                  <option value="+598">Venezuela</option>
-                  <option value="+507">Panamá</option>
-                  <option value="+505">Nicaragua</option>
+                  <option value="+598">Venezuela (+598)</option>
+                  <option value="+507">Panamá (+507)</option>
+                  <option value="+505">Nicaragua (+505)</option>
                   <option value="+506">Costa Rica (+506)</option>
                   <option value="+52">México (+52)</option>
-                  <option value="+202">Estados Unidos</option>
+                  <option value="+202">Estados Unidos (+202)</option>
                 </select>
               </div>
               <div className="mt-3">
