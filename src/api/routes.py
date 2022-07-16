@@ -31,12 +31,14 @@ def signup():
     telefono = request.json.get("telefono", None)
     latitud = request.json.get("latitud", None)
     longitud = request.json.get("longitud", None)
+    codigo = request.json.get("codigo", None)
+    telcompleto = codigo + telefono
 
 
     if not correo or not contrasena or not rol:
         return jsonify({'msg': 'Necesitas un correo, una contraseña y un rol para ingresar'}), 404
 
-    usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telefono, latitud=latitud, longitud=longitud)
+    usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telcompleto, latitud=latitud, longitud=longitud)
     db.session.add(usuario_nuevo)
     db.session.commit()
     respuesta = {
@@ -66,8 +68,92 @@ def handle_login():
         "msg": "bienvenido",
         "rol": usuario_query.rol,
         "accessToken": access_token,
-        "nombre": usuario_query.nombre
-
+        "nombre": usuario_query.nombre,
+        "id": usuario_query.id
     }
-
     return jsonify(response_body), 200
+
+@api.route('/get_tipos_freelancer', methods=['GET'])
+@jwt_required()
+def get_tipos():
+    all_tipos_freelancer_query = TipoFreelancer.query.all()
+    all_tipos_freelancer = list(map(lambda x: x.serialize(), all_tipos_freelancer_query))
+    return jsonify(all_tipos_freelancer), 200
+
+@api.route('/get_idiomas', methods=['GET'])
+@jwt_required()
+def get_idiomas():
+    all_idiomas_query = Idiomas.query.all()
+    all_idiomas = list(map(lambda x: x.serialize(), all_idiomas_query))
+    return jsonify(all_idiomas), 200
+
+@api.route('/add_idioma', methods=['POST'])
+@jwt_required()
+def add_idioma():
+    idioma_id = request.json.get("idioma_id", None)
+    id_freelancer = request.json.get("id_freelancer", None)
+
+    idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
+    db.session.add(idioma_nuevo)
+    db.session.commit()
+    respuesta = {
+        "msg" : "idioma registrado"
+    }
+    return jsonify(respuesta), 200
+
+@api.route('/get_experiencias', methods=['GET'])
+@jwt_required()
+def get_experiencias():
+    all_experiencias_query = Experiencia.query.all()
+    all_experiencias = list(map(lambda x: x.serialize(), all_experiencias_query))
+    return jsonify(all_experiencias), 200
+
+@api.route('/completar_perfil', methods=['POST'])
+@jwt_required()
+def completa_perfil():
+    email_user = get_jwt_identity()
+    usuario_id = Usuario.query.filter_by(correo=email_user).first().id
+    tipo_freelancer = request.json.get("tipo_freelancer", None)
+    descripcion = request.json.get("descripcion", None)
+    imagen = request.json.get("imagen", None)
+    linkedin = request.json.get("linkedin", None)
+    portafolio = request.json.get("portafolio", None)
+    tarifa = request.json.get("tarifa", None)
+    experiencia_id = request.json.get("experiencia_id", None)
+
+    perfil_nuevo = PerfilFreelancer(tipo_freelancer=int(tipo_freelancer), usuario_id=int(usuario_id), descripcion=descripcion, imagen=imagen, linkedin=linkedin, portafolio=portafolio, tarifa=tarifa, experiencia_id=int(experiencia_id)  )
+    db.session.add(perfil_nuevo)
+    db.session.commit()
+    respuesta = {
+        "msg" : "perfil completado exitosamente"
+    }
+    return jsonify(respuesta), 200
+
+@api.route('/get_idiomas_freelancer', methods=['GET'])
+@jwt_required()
+def get_idiomas_freelancer():
+    email_user = get_jwt_identity()
+    usuario_id = Usuario.query.filter_by(correo=email_user).first().id
+    idiomas_usuario = FreelancerIdiomas.query.filter_by(id_freelancer=usuario_id)
+    lista_idiomas = []
+    for iu in idiomas_usuario: 
+        # print(iu.idioma_id)
+        idioma = Idiomas.query.get(iu.idioma_id)
+        # print(idioma.idioma)
+        lista_idiomas.append({"nombre":idioma.idioma, "id":idioma.id})
+
+    return jsonify(lista_idiomas),200
+
+
+
+# @api.route('/test', methods=['GET'])
+# def test():
+#     q = request.args.get("nombreparametro")
+#     print(q)
+#     busqueda = "%{}%".format(q)
+#     posts = Usuarios.query.filter(Usuario.correo.like(busqueda)).all()
+#     return jsonify([]),200
+
+    
+
+   
