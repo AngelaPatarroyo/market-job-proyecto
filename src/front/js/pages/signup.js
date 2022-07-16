@@ -5,8 +5,10 @@ import "../../styles/home.css";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
+  const [msjError, setMsjError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [password2, setPassword2] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -17,11 +19,17 @@ export const Signup = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
+    setMsjError("");
+    if (password !== password2) {
+      alert("Las contraseñas no coinciden");
+    } else {
     const body = {
       rol: rol,
       correo: email,
       contrasena: password,
       telefono: phone,
+    };
+    actions.signup(body);
     };
     console.log(body);
 
@@ -55,8 +63,8 @@ export const Signup = () => {
               <div>
                 {store?.roles.map((rol) => {
                   return (
-                    <div className="form-check mt-3" key={rol.id}>
-                      <input
+                    <div className="form-check mt-2" key={rol.id}>
+                      <input 
                         className="form-check-input"
                         type="radio"
                         onClick={() => setRol(rol.id)}
@@ -91,6 +99,16 @@ export const Signup = () => {
                   placeholder="Contraseña"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mt-3">
+                <input
+                  className="w-75"
+                  type={"password"}
+                  required
+                  placeholder="Confirmar Contraseña"
+                  value={password2}
+                  onChange={(e) => setPassword2(e.target.value)}
                 />
               </div>
               <div className="mt-3">
@@ -135,15 +153,15 @@ export const Signup = () => {
                   <option value="+54">Argentina (+54)</option>
                   <option value="+598">Uruguay (+598)</option>
                   <option value="+55">Brasil (+55)</option>
-                  <option value="+595">Paraguay</option>
+                  <option value="+595">Paraguay (+595)</option>
                   <option value="+56">Chile (+56)</option>
                   <option value="+51">Perú (+51)</option>
-                  <option value="+598">Venezuela</option>
-                  <option value="+507">Panamá</option>
-                  <option value="+505">Nicaragua</option>
+                  <option value="+598">Venezuela (+598)</option>
+                  <option value="+507">Panamá (+507)</option>
+                  <option value="+505">Nicaragua (+505)</option>
                   <option value="+506">Costa Rica (+506)</option>
                   <option value="+52">México (+52)</option>
-                  <option value="+202">Estados Unidos</option>
+                  <option value="+202">Estados Unidos (+202)</option>
                 </select>
               </div>
               <div className="mt-3">

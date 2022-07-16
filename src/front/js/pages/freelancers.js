@@ -13,13 +13,13 @@ export const Freelancers = () => {
           className="w-50 text-left"
           style={{ height: "350px", width: "350px" }}
         >
-          <h1>Ivan González</h1>
+          <h1>Iván González</h1>
           <h4>Diseñador Gráfico</h4>
           <h5>
             Calificación <i className="fab fa-github"></i> 4.5
           </h5>
           <h5>3 - 5 años de experiencia</h5>
-          <h5>Idiomas: Español, Inglés</h5>
+          <h5>Idiomas: Español, Inglés, Francés, Latín, Portugués</h5>
           <h5>Tarifa: $35</h5>
           <div className="container d-grid gap-2 d-md w-50 row align-items-start p-0 mt-5">
             <button type="button" className="btn btn btn-dark">

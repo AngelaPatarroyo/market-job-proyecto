@@ -25,7 +25,7 @@ export const Home = () => {
           <div className="d-grid col-6">
             <Link to="/signup">
               <button type="button" className="btn btn-default text-white">
-                Resgistrate Aquí
+                Registrate Aquí
               </button>
             </Link>
           </div>
