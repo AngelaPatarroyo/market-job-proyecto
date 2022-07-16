@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import signup from "../../img/signup.png";
 import "../../styles/home.css";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Signup = () => {
   const { store, actions } = useContext(Context);
@@ -16,6 +17,7 @@ export const Signup = () => {
   const [isEmpresa, setIsEmpresa] = useState("");
   const [pais, setPais] = useState("");
   const [rol, setRol] = useState(0);
+  const navigate = useNavigate();
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -23,24 +25,24 @@ export const Signup = () => {
     if (password !== password2) {
       alert("Las contraseñas no coinciden");
     } else {
-    const body = {
-      rol: rol,
-      correo: email,
-      contrasena: password,
-      telefono: phone,
-    };
-    actions.signup(body);
-    };
+      const body = {
+        rol: rol,
+        correo: email,
+        contrasena: password,
+        telefono: phone,
+      };
+      //actions.signup(body);
+      actions
+        .signup(body)
+        .then((resp) => {
+          console.log(resp);
+          navigate("/login")
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
     console.log(body);
-
-    /*  actions
-      .signup(body)
-      .then((resp) => {
-        console.log(resp);
-      })
-      .catch((error) => {
-        console.log(error);
-      }); */
   };
 
   useEffect(() => {
@@ -64,7 +66,7 @@ export const Signup = () => {
                 {store?.roles.map((rol) => {
                   return (
                     <div className="form-check mt-2" key={rol.id}>
-                      <input 
+                      <input
                         className="form-check-input"
                         type="radio"
                         onClick={() => setRol(rol.id)}

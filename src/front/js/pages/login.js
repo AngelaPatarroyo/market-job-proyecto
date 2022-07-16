@@ -2,12 +2,14 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
 import "../../styles/home.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
   const onSubmit = (e) => {
     e.preventDefault();
     const body = {
@@ -21,7 +23,17 @@ export const Login = () => {
       .login(body)
       .then((resp) => {
         console.log(resp);
-      })
+       if (resp.rol==1&&resp.complete==false) {
+        //redirigimos a completar la data
+        navigate("/..")
+       } else if (resp.rol==1){
+        //redirigimos al freelancer con sus datos completos a su profile
+        navigate("/..")
+       } else if (resp.rol==2){
+        //redirigimos a la empresa a su página
+        navigate("/..")
+       }
+       })
       .catch((error) => {
         console.log(error);
       });
