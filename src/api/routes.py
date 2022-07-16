@@ -74,12 +74,14 @@ def handle_login():
     return jsonify(response_body), 200
 
 @api.route('/get_tipos_freelancer', methods=['GET'])
+@jwt_required()
 def get_tipos():
     all_tipos_freelancer_query = TipoFreelancer.query.all()
     all_tipos_freelancer = list(map(lambda x: x.serialize(), all_tipos_freelancer_query))
     return jsonify(all_tipos_freelancer), 200
 
 @api.route('/get_idiomas', methods=['GET'])
+@jwt_required()
 def get_idiomas():
     all_idiomas_query = Idiomas.query.all()
     all_idiomas = list(map(lambda x: x.serialize(), all_idiomas_query))
@@ -126,6 +128,23 @@ def completa_perfil():
         "msg" : "perfil completado exitosamente"
     }
     return jsonify(respuesta), 200
+
+@api.route('/get_idiomas_freelancer', methods=['GET'])
+@jwt_required()
+def get_idiomas_freelancer():
+    email_user = get_jwt_identity()
+    usuario_id = Usuario.query.filter_by(correo=email_user).first().id
+    idiomas_usuario = FreelancerIdiomas.query.filter_by(id_freelancer=usuario_id)
+    lista_idiomas = []
+    for iu in idiomas_usuario: 
+        # print(iu.idioma_id)
+        idioma = Idiomas.query.get(iu.idioma_id)
+        # print(idioma.idioma)
+        lista_idiomas.append({"nombre":idioma.idioma, "id":idioma.id})
+
+    return jsonify(lista_idiomas),200
+
+
 
 # @api.route('/test', methods=['GET'])
 # def test():
