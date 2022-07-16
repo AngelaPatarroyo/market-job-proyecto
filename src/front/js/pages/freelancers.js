@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import Profile from "../../img/Profile.png";
 import "../../styles/home.css";
+import { Context } from "../store/appContext";
 
 export const Freelancers = () => {
+  const { store, actions } = useContext(Context);
+  actions
+    .get_idiomas()
+    .then((resp) => {
+      console.log(resp);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
   return (
     <div className="container fluid">
       <div id="freelancerscon" className="justify-content-center d-flex">

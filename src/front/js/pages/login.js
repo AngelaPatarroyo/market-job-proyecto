@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
 import "../../styles/home.css";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const { store, actions } = useContext(Context);
@@ -67,6 +68,7 @@ export const Login = () => {
                   </button>
                 </div>
               </form>
+              <Link to={"/1"}>Ir a Perfil Frelancer</Link>
             </div>
           </div>
         </div>
