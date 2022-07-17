@@ -38,7 +38,7 @@ def signup():
     if not correo or not contrasena or not rol:
         return jsonify({'msg': 'Necesitas un correo, una contraseña y un rol para ingresar'}), 404
 
-    usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telcompleto, latitud=latitud, longitud=longitud)
+    usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telcompleto, latitud=latitud, longitud=longitud, complete=False)
     db.session.add(usuario_nuevo)
     db.session.commit()
     respuesta = {
@@ -90,8 +90,9 @@ def get_idiomas():
 @api.route('/add_idioma', methods=['POST'])
 @jwt_required()
 def add_idioma():
+    email_user = get_jwt_identity()
+    id_freelancer = Usuario.query.filter_by(correo=email_user).first().id
     idioma_id = request.json.get("idioma_id", None)
-    id_freelancer = request.json.get("id_freelancer", None)
 
     idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
     db.session.add(idioma_nuevo)
@@ -144,7 +145,18 @@ def get_idiomas_freelancer():
 
     return jsonify(lista_idiomas),200
 
+@api.route('/completar_registro', methods=['PUT'])
+@jwt_required()
+def completar_registro():
+    email_user = get_jwt_identity()
+    usuario = Usuario.query.filter_by(correo=email_user).first()
+    usuario.complete = True
+    db.session.commit()
 
+    respuesta = {
+        "msg" : "Registro completado exitosamente"
+    }
+    return jsonify(respuesta), 200
 
 # @api.route('/test', methods=['GET'])
 # def test():

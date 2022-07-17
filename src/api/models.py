@@ -13,6 +13,7 @@ class Usuario(db.Model):
     telefono = db.Column(db.String(50))
     latitud = db.Column(db.Float)
     longitud = db.Column(db.Float)
+    complete = db.Column(db.Boolean(), unique=False, nullable=False)
 
     def __repr__(self):
         return f'<User {self.correo}>'
@@ -26,6 +27,7 @@ class Usuario(db.Model):
             "telefono": self.telefono,
             "latitud": self.latitud,
             "longitud": self.longitud,
+            "complete": self.complete,
 
             # do not serialize the password, its a security breach
         }
