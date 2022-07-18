@@ -1,6 +1,7 @@
 const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
+      accessToken: null,
       message: null,
       demo: [
         {
@@ -45,7 +46,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           const data = await resp.json();
-
+          setStore({accessToken:data.accessToken})
           console.log(data);
           return data;
         } catch (error) {
@@ -80,6 +81,24 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           const data = await resp.json();
           setStore({roles:data})
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
+      get_idiomas: async () => {
+       const store = getStore()
+       console.log(store.accessToken); 
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/get_idiomas_freelancer", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer "+store.accessToken,
+            },
+          });
+          const data = await resp.json();
+         console.log(data)
+         return data
         } catch (error) {
           console.log("Error registro", error);
         }
