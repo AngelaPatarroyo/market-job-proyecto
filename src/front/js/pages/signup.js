@@ -146,7 +146,7 @@ export const Signup = () => {
                     value=""
                     selected
                     disabled
-                    className="defaultOption border border-dark"
+                    className="defaultOption border border-dark dropdown-menu"
                     id="codigo"
                   >
                     Código de País

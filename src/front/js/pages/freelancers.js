@@ -26,7 +26,7 @@ export const Freelancers = () => {
           <h1>Iván González</h1>
           <h4>Diseñador Gráfico</h4>
           <h5>
-            Calificación <i className="fab fa-github"></i> 4.5
+            Calificación <i class="fas fa-star-half-alt" /> 4.5
           </h5>
           <h5>3 - 5 años de experiencia</h5>
           <h5>Idiomas: Español, Inglés, Francés, Latín, Portugués</h5>
