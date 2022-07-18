@@ -158,6 +158,21 @@ def completar_registro():
     }
     return jsonify(respuesta), 200
 
+@api.route('/add_favorito', methods=['POST'])
+@jwt_required()
+def add_favorito():
+    email_user = get_jwt_identity()
+    id_empresa = Usuario.query.filter_by(correo=email_user).first().id
+    id_freelancer = request.json.get("id_freelancer", None)
+
+    favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
+    db.session.add(favorito_nuevo)
+    db.session.commit()
+    respuesta = {
+        "msg" : "favorito agregado"
+    }
+    return jsonify(respuesta), 200
+
 # @api.route('/test', methods=['GET'])
 # def test():
 #     q = request.args.get("nombreparametro")
