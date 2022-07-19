@@ -173,6 +173,27 @@ def add_favorito():
     }
     return jsonify(respuesta), 200
 
+@api.route('/cargar_perfil/<int:id>/', methods=['GET'])
+# @jwt_required()
+def cargar_perfil(id):
+    info_usuario = Usuario.query.filter_by(id=id).first()
+    info_perfil = PerfilFreelancer.query.filter_by(usuario_id=id).first()
+    info_completa = {
+        "nombre": info_usuario.nombre,
+        "telefono": info_usuario.telefono,
+        "tipo_freelancer": info_perfil.tipo_freelancer, 
+        "descripcion": info_perfil.descripcion,
+        "imagen": info_perfil.imagen,
+        "linkedin": info_perfil.linkedin,
+        "portafolio": info_perfil.portafolio,
+        "tarifa": info_perfil.tarifa
+
+
+    }
+    return jsonify(info_completa),200
+
+
+
 # @api.route('/test', methods=['GET'])
 # def test():
 #     q = request.args.get("nombreparametro")
