@@ -188,11 +188,19 @@ def cargar_perfil(id):
         "portafolio": info_perfil.portafolio,
         "tarifa": info_perfil.tarifa
 
-
     }
     return jsonify(info_completa),200
 
-
+@api.route('/cargar_datos/', methods=['GET'])
+def cargar_datos():
+    rol = Rol.query.all()
+    if not rol:
+        new_rol_1 = Rol(id=1, nombre="Freelancer" )
+        new_rol_2 = Rol(id=2, nombre="Empresa" )
+        db.session.add(new_rol_1)
+        db.session.add(new_rol_2)
+        db.session.commit()
+    return jsonify({"msg": "Roles cargados"}), 200
 
 # @api.route('/test', methods=['GET'])
 # def test():
