@@ -47,6 +47,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           const data = await resp.json();
           setStore({accessToken:data.accessToken})
+          localStorage.setItem("accessToken", data.accessToken);
+          localStorage.setItem("id", data.id);
           console.log(data);
           return data;
         } catch (error) {
@@ -93,7 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             method: "GET",
             headers: {
               "Content-Type": "application/json",
-              "Authorization": "Bearer "+store.accessToken,
+              "Authorization": "Bearer "+ localStorage.getItem("accessToken"),
             },
           });
           const data = await resp.json();
