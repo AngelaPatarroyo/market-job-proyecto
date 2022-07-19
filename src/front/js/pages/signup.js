@@ -30,6 +30,7 @@ export const Signup = () => {
         correo: email,
         contrasena: password,
         telefono: phone,
+        codigo: pais,
       };
       //actions.signup(body);
       actions
@@ -42,7 +43,7 @@ export const Signup = () => {
           console.log(error);
         });
     }
-    console.log(body);
+    
   };
 
   useEffect(() => {
