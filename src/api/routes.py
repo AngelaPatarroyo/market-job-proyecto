@@ -173,7 +173,7 @@ def add_favorito():
     }
     return jsonify(respuesta), 200
 
-@api.route('/cargar_perfil/<int:id>/', methods=['GET'])
+@api.route('/ver_perfil_completo/<int:id>/', methods=['GET'])
 # @jwt_required()
 def cargar_perfil(id):
     info_usuario = Usuario.query.filter_by(id=id).first()
