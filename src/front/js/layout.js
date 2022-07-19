@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
@@ -21,6 +21,13 @@ const Layout = () => {
   //the basename is used when your project is published in a subdirectory and not in the root of the domain
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
+  useEffect(() => {
+    try {
+      const resp = fetch(process.env.BACKEND_URL + "/api/cargar_datos");
+    } catch (error) {
+      console.log("Error loading message from backend", error);
+    }
+  }, []);
 
   return (
     <div>

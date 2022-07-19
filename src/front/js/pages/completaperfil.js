@@ -1,43 +1,34 @@
-import React from "react";
+import React, {useContext, useEffect} from "react";
+import { Context } from "../store/appContext";
+
 import "../../styles/home.css";
 
 export const Completaperfil = () => {
+  const {store, actions} = useContext(Context)
+  
+  useEffect(()=>{
+    actions.getTipodeFreelancer()
+  },[])
   return (
     <div>
       <div className="mt-5">
         <div className="text-center">
           <h1>Completa tu Perfil</h1>
-          <h4 className="mt-5">En qué area profesional te sesenvuelves</h4>
+          <h4 className="mt-5">En qué area profesional te desenvuelves</h4>
         </div>
 
         <div id="experienciabox" className="container">
           <div className="container d-flex justify-content-center">
+            {store.tipoFreelancer.map((item,index)=>(
+              <h1>{item.tipo}</h1>
+            ))}
             <button
               className="text-center pe-5 pb-4 me-5 btn btn-dark "
               style={{ width: "350px" }}
             >
               <i className="fas fa-code" /> Programación y Tecnología
             </button>
-            <button
-              className="text-center pe-5 pb-4 ms-5 btn btn-dark"
-              style={{ width: "350px" }}
-            >
-              <i className="fas fa-laptop" /> Diseño Gráfico
-            </button>
-          </div>
-          <div className="container d-flex justify-content-center ">
-            <button
-              className="text-center pe-5 pb-4 me-5 mt-5 btn btn-dark"
-              style={{ width: "350px" }}
-            >
-              <i class="fab fa-facebook" /> Digital Marketing
-            </button>
-            <button
-              className="text-center pe-5 pb-4 ms-5 mt-5 btn btn-dark"
-              style={{ width: "350px" }}
-            >
-              <i className="fas fa-laptop" /> Producción de Video
-            </button>
+            
           </div>
         </div>
         <div className="container d-flex justify-content-center mt-5 align-items-center ">
