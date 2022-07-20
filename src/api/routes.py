@@ -192,6 +192,7 @@ def cargar_perfil(id):
     for i in freelancer_idiomas:
         idioma = Idiomas.query.filter_by(id=i.idioma_id).first()
         array_idiomas.append({"nombre":idioma.idioma, "id":idioma.id})
+        experiencia = Experiencia.query.filter_by(id=info_perfil.experiencia_id).first().nombre
         
     info_completa = {
         "nombre": info_usuario.nombre,
@@ -204,7 +205,8 @@ def cargar_perfil(id):
         "tarifa": info_perfil.tarifa,
         "latitud": info_usuario.latitud,
         "longitud": info_usuario.longitud,
-        "idiomas": array_idiomas
+        "idiomas": array_idiomas,
+        "experiencia": experiencia
 
     }
     return jsonify(info_completa),200
@@ -229,10 +231,14 @@ def cargar_datos():
     
     tipos_freelancer= TipoFreelancer.query.all()
     if not tipos_freelancer:
-        new_tipo_freelancer_1 = TipoFreelancer(id=1, nombre="Diseno" )
-        new_tipo_freelancer_2 = TipoFreelancer(id=2, nombre="Video" )
+        new_tipo_freelancer_1 = TipoFreelancer(id=1, nombre="Programación y Tecnología" )
+        new_tipo_freelancer_2 = TipoFreelancer(id=2, nombre="Diseño Gráfico" )
+        new_tipo_freelancer_3 = TipoFreelancer(id=2, nombre="Digital Marketing" )
+        new_tipo_freelancer_4 = TipoFreelancer(id=2, nombre="Producción de Video" )
         db.session.add(new_tipo_freelancer_1)
         db.session.add(new_tipo_freelancer_2)
+        db.session.add(new_tipo_freelancer_3)
+        db.session.add(new_tipo_freelancer_4)
 
 
     db.session.commit()
