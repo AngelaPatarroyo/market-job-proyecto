@@ -8,6 +8,7 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+import json
 
 
 api = Blueprint('api', __name__)
@@ -178,20 +179,30 @@ def add_favorito():
 def cargar_perfil(id):
     info_usuario = Usuario.query.filter_by(id=id).first()
     info_perfil = PerfilFreelancer.query.filter_by(usuario_id=id).first()
+    tipo_freelancer = TipoFreelancer.query.filter_by(id=info_perfil.tipo_freelancer).first().tipo
+    freelancer_idiomas = FreelancerIdiomas.query.filter_by(id_freelancer=id)
+    array_idiomas = []
+    for i in freelancer_idiomas:
+        idioma = Idiomas.query.filter_by(id=i.idioma_id).first()
+        array_idiomas.append({"nombre":idioma.idioma, "id":idioma.id})
+        
     info_completa = {
         "nombre": info_usuario.nombre,
         "telefono": info_usuario.telefono,
-        "tipo_freelancer": info_perfil.tipo_freelancer, 
+        "tipo_freelancer": tipo_freelancer, 
         "descripcion": info_perfil.descripcion,
         "imagen": info_perfil.imagen,
         "linkedin": info_perfil.linkedin,
         "portafolio": info_perfil.portafolio,
-        "tarifa": info_perfil.tarifa
+        "tarifa": info_perfil.tarifa,
+        "latitud": info_usuario.latitud,
+        "longitud": info_usuario.longitud,
+        "idiomas": array_idiomas
 
     }
     return jsonify(info_completa),200
 
-@api.route('/cargar_datos/', methods=['GET'])
+@api.route('/cargar_datos/', methods=['GET'])  
 def cargar_datos():
     rol = Rol.query.all()
     if not rol:
@@ -199,8 +210,26 @@ def cargar_datos():
         new_rol_2 = Rol(id=2, nombre="Empresa" )
         db.session.add(new_rol_1)
         db.session.add(new_rol_2)
-        db.session.commit()
-    return jsonify({"msg": "Roles cargados"}), 200
+   
+    idiomas= Idiomas.query.all()
+    if not idiomas:
+        new_idioma_1 = Idiomas(id=1, nombre="Ingles" )
+        new_idioma_2 = Idiomas(id=2, nombre="Espanol" )
+        new_idioma_3 = Idiomas(id=3, nombre="Frances" )
+        db.session.add(new_idioma_1)
+        db.session.add(new_idioma_2)
+        db.session.add(new_idioma_3)
+    
+    tipos_freelancer= TipoFreelancer.query.all()
+    if not tipos_freelancer:
+        new_tipo_freelancer_1 = TipoFreelancer(id=1, nombre="Diseno" )
+        new_tipo_freelancer_2 = TipoFreelancer(id=2, nombre="Video" )
+        db.session.add(new_tipo_freelancer_1)
+        db.session.add(new_tipo_freelancer_2)
+
+
+    db.session.commit()
+    return jsonify({"msg": "Datos cargados"}), 200
 
 # @api.route('/test', methods=['GET'])
 # def test():
