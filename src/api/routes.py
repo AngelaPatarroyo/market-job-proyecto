@@ -38,15 +38,22 @@ def signup():
 
     if not correo or not contrasena or not rol:
         return jsonify({'msg': 'Necesitas un correo, una contraseña y un rol para ingresar'}), 404
+    
+    usuario_prueba = Usuario.query.filter_by(correo=correo).first()
+    if not usuario_prueba:
+    
 
-    usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telcompleto, latitud=latitud, longitud=longitud, complete=False)
-    db.session.add(usuario_nuevo)
-    db.session.commit()
-    respuesta = {
-        "msg" : "usuario registrado"
-    }
-    return jsonify(respuesta), 200
-
+        usuario_nuevo = Usuario(correo=correo, contrasena=contrasena, is_active=True, rol=int(rol), nombre=nombre, telefono=telcompleto, latitud=latitud, longitud=longitud, complete=False)
+        db.session.add(usuario_nuevo)
+        db.session.commit()
+        respuesta = {
+            "msg" : "usuario registrado"
+        }
+        return jsonify(respuesta), 200
+    
+    else:
+        return jsonify({"msg": "el usuario ya esta registrado"}), 404
+        
 @api.route('/get_rols', methods=['GET'])
 def get_rols():
     all_rols_query = Rol.query.all()
