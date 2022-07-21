@@ -231,10 +231,10 @@ def cargar_datos():
     
     tipos_freelancer= TipoFreelancer.query.all()
     if not tipos_freelancer:
-        new_tipo_freelancer_1 = TipoFreelancer(id=1, tipo="Programación y Tecnología" )
-        new_tipo_freelancer_2 = TipoFreelancer(id=2, tipo="Diseño Gráfico" )
-        new_tipo_freelancer_3 = TipoFreelancer(id=3, tipo="Digital Marketing" )
-        new_tipo_freelancer_4 = TipoFreelancer(id=4, tipo="Producción de Video" )
+        new_tipo_freelancer_1 = TipoFreelancer(id=1, tipo="Programación y Tecnología", icono="fas fa-code" )
+        new_tipo_freelancer_2 = TipoFreelancer(id=2, tipo="Diseño Gráfico", icono= "fas fa-laptop")
+        new_tipo_freelancer_3 = TipoFreelancer(id=3, tipo="Digital Marketing", icono= "fab fa-facebook")
+        new_tipo_freelancer_4 = TipoFreelancer(id=4, tipo="Producción de Video", icono= "fas fa-laptop")
         db.session.add(new_tipo_freelancer_1)
         db.session.add(new_tipo_freelancer_2)
         db.session.add(new_tipo_freelancer_3)
