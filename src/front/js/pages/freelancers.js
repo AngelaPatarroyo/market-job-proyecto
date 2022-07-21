@@ -6,7 +6,7 @@ import { Context } from "../store/appContext";
 export const Freelancers = () => {
   const { store, actions } = useContext(Context);
   actions
-    .get_idiomas()
+    .getIdiomasFreelancer()
     .then((resp) => {
       console.log(resp);
     })
