@@ -144,7 +144,7 @@ export const Signup = () => {
                   onChange={(e) => setPais(e.target.value)}
                 >
                   <option
-                    value=""
+                    value="Código de País"
                     selected
                     disabled
                     className="defaultOption border border-dark dropdown-menu"

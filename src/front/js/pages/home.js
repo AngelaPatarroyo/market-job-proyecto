@@ -119,20 +119,20 @@ export const Home = () => {
             </div>
           </div>
         </div>
-        <div classname="pt-100px"></div>
+        <div className="pt-100px"></div>
       </div>
       <div className="text-center empresas">
         <h4>Estas son las empresas que confían en nosotros</h4>
       </div>
       <div className="text-center">
-        <i class="fab fa-apple fa-2x" />
-        <i class="fab fa-amazon fa-2x" />
-        <i class="fab fa-google fa-2x" />
-        <i class="fab fa-google-play fa-2x" />
-        <i class="fab fa-ebay fa-2x" />
-        <i class="fab fa-facebook fa-2x" />
-        <i class="fab fa-snapchat fa-2x" />
-        <i class="fab fa-cc-amex fa-2x" />
+        <i className="fab fa-apple fa-2x" />
+        <i className="fab fa-amazon fa-2x" />
+        <i className="fab fa-google fa-2x" />
+        <i className="fab fa-google-play fa-2x" />
+        <i className="fab fa-ebay fa-2x" />
+        <i className="fab fa-facebook fa-2x" />
+        <i className="fab fa-snapchat fa-2x" />
+        <i className="fab fa-cc-amex fa-2x" />
       </div>
     </div>
   );
