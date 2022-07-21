@@ -17,6 +17,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       ],
       roles: [],
       tipoFreelancer: [],
+      idiomas: [],
+      idiomasFreelancer: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -55,7 +57,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       signup: async (body) => {
-        console.log(body)
+        console.log(body);
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
             method: "POST",
@@ -75,17 +77,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       getTipodeFreelancer: async () => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/get_tipos_freelancer", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("accessToken"),
-            },
-          });
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/get_tipos_freelancer",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
           const data = await resp.json();
 
           console.log(data);
-          setStore({tipoFreelancer:data})
+          setStore({ tipoFreelancer: data });
           return data;
         } catch (error) {
           console.log("Error registro", error);
@@ -105,7 +110,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
-      get_idiomas: async () => {
+      getIdiomasFreelancer: async () => {
         const store = getStore();
         console.log(store.accessToken);
         try {
@@ -120,10 +125,50 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
           const data = await resp.json();
+          setStore({"idiomasFreelancer":data})
           console.log(data);
           return data;
         } catch (error) {
           console.log("Error registro", error);
+        }
+      },
+      getIdiomas: async () => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/get_idiomas",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+
+          console.log(data);
+          setStore({ idiomas: data });
+          return data;
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
+      agregarIdioma: async (body) => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/add_idioma", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+          getActions().getIdiomasFreelancer();
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error agregar idioma", error);
         }
       },
       changeColor: (index, color) => {
