@@ -222,19 +222,19 @@ def cargar_datos():
    
     idiomas= Idiomas.query.all()
     if not idiomas:
-        new_idioma_1 = Idiomas(id=1, nombre="Ingles" )
-        new_idioma_2 = Idiomas(id=2, nombre="Espanol" )
-        new_idioma_3 = Idiomas(id=3, nombre="Frances" )
+        new_idioma_1 = Idiomas(id=1, idioma="Ingles" )
+        new_idioma_2 = Idiomas(id=2, idioma="Espanol" )
+        new_idioma_3 = Idiomas(id=3, idioma="Frances" )
         db.session.add(new_idioma_1)
         db.session.add(new_idioma_2)
         db.session.add(new_idioma_3)
     
     tipos_freelancer= TipoFreelancer.query.all()
     if not tipos_freelancer:
-        new_tipo_freelancer_1 = TipoFreelancer(id=1, nombre="Programación y Tecnología" )
-        new_tipo_freelancer_2 = TipoFreelancer(id=2, nombre="Diseño Gráfico" )
-        new_tipo_freelancer_3 = TipoFreelancer(id=2, nombre="Digital Marketing" )
-        new_tipo_freelancer_4 = TipoFreelancer(id=2, nombre="Producción de Video" )
+        new_tipo_freelancer_1 = TipoFreelancer(id=1, tipo="Programación y Tecnología" )
+        new_tipo_freelancer_2 = TipoFreelancer(id=2, tipo="Diseño Gráfico" )
+        new_tipo_freelancer_3 = TipoFreelancer(id=3, tipo="Digital Marketing" )
+        new_tipo_freelancer_4 = TipoFreelancer(id=4, tipo="Producción de Video" )
         db.session.add(new_tipo_freelancer_1)
         db.session.add(new_tipo_freelancer_2)
         db.session.add(new_tipo_freelancer_3)
