@@ -16,13 +16,13 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       roles: [],
+      tipoFreelancer: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
       exampleFunction: () => {
         getActions().changeColor(0, "green");
       },
-
       getMessage: async () => {
         try {
           // fetching data from the backend
@@ -35,7 +35,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error loading message from backend", error);
         }
       },
-
       login: async (body) => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/login", {
@@ -46,7 +45,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           const data = await resp.json();
-          setStore({accessToken:data.accessToken})
+          setStore({ accessToken: data.accessToken });
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("id", data.id);
           console.log(data);
@@ -55,8 +54,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error login", error);
         }
       },
-
       signup: async (body) => {
+        console.log(body)
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/signup", {
             method: "POST",
@@ -73,6 +72,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
+
+      getTipodeFreelancer: async () => {
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/get_tipos_freelancer", {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+
+          console.log(data);
+          setStore({tipoFreelancer:data})
+          return data;
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
       get_roles: async () => {
         try {
           const resp = await fetch(process.env.BACKEND_URL + "/api/get_rols", {
@@ -82,25 +100,28 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           const data = await resp.json();
-          setStore({roles:data})
+          setStore({ roles: data });
         } catch (error) {
           console.log("Error registro", error);
         }
       },
       get_idiomas: async () => {
-       const store = getStore()
-       console.log(store.accessToken); 
+        const store = getStore();
+        console.log(store.accessToken);
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/get_idiomas_freelancer", {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              "Authorization": "Bearer "+ localStorage.getItem("accessToken"),
-            },
-          });
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/get_idiomas_freelancer",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
           const data = await resp.json();
-         console.log(data)
-         return data
+          console.log(data);
+          return data;
         } catch (error) {
           console.log("Error registro", error);
         }
