@@ -1,14 +1,23 @@
-import React, {useContext, useEffect} from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 
 import "../../styles/home.css";
 
 export const Completaperfil = () => {
-  const {store, actions} = useContext(Context)
-  
-  useEffect(()=>{
-    actions.getTipodeFreelancer()
-  },[])
+  const { store, actions } = useContext(Context);
+  const [idFreelancerSelected, setIdFreelancerSelected] = useState(null);
+  const [idiomaSelected, setIdiomaSelected] = useState(null);
+
+  useEffect(() => {
+    actions.getTipodeFreelancer();
+    actions.getIdiomas();
+  }, []);
+  const agregarIdioma = () => {
+    const body={
+      idioma_id:idiomaSelected
+    }
+    actions.agregarIdioma(body)
+  };
   return (
     <div>
       <div className="mt-5">
@@ -16,19 +25,18 @@ export const Completaperfil = () => {
           <h1>Completa tu Perfil</h1>
           <h4 className="mt-5">En qué area profesional te desenvuelves</h4>
         </div>
-
+        <span>{idFreelancerSelected}</span>
         <div id="experienciabox" className="container">
           <div className="container d-flex justify-content-center">
-            {store.tipoFreelancer.map((item,index)=>(
-              <h1>{item.tipo}</h1>
+            {store.tipoFreelancer.map((item, index) => (
+              <button
+                className="text-center pe-5 pb-4 me-5 btn btn-dark "
+                style={{ width: "350px" }}
+                onClick={() => setIdFreelancerSelected(item.id)}
+              >
+                <i className="fas fa-code" /> {item.tipo}
+              </button>
             ))}
-            <button
-              className="text-center pe-5 pb-4 me-5 btn btn-dark "
-              style={{ width: "350px" }}
-            >
-              <i className="fas fa-code" /> Programación y Tecnología
-            </button>
-            
           </div>
         </div>
         <div className="container d-flex justify-content-center mt-5 align-items-center ">
@@ -97,12 +105,15 @@ export const Completaperfil = () => {
           <select
             className="form-select w-25"
             aria-label="Default select example"
+            onClick={(e)=>setIdiomaSelected(e.target.value)}
           >
             <option selected>Selecciona Idioma</option>
-            <option value="1">Español</option>
-            <option value="2">Inglés</option>
-            <option value="3">Frances</option>
-            <option value="4">Portugués</option>
+
+            {store.idiomas.map((item, index) => (
+              <option value={item.id} key={index}>
+                {item.idioma}
+              </option>
+            ))}
           </select>
           <select
             className="form-select w-25 ms-4"
@@ -114,6 +125,15 @@ export const Completaperfil = () => {
             <option value="3">Avanzado</option>
             <option value="4">Nativo</option>
           </select>
+        </div>
+        <div>
+          <button
+            className="bg-black text-white w-25"
+            type="button"
+            onClick={() => agregarIdioma()}
+          >
+            Agregar
+          </button>
         </div>
       </div>
       <div className="d-flex justify-content-center mt-5">
