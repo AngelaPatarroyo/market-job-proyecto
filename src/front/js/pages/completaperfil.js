@@ -126,16 +126,17 @@ export const Completaperfil = () => {
             <option value="4">Nativo</option>
           </select>
         </div>
-        <div>
+       
+      </div>
+      <div className="d-flex justify-content-center mt-5">
           <button
             className="bg-black text-white w-25"
             type="button"
             onClick={() => agregarIdioma()}
           >
-            Agregar
+            Agregar idioma
           </button>
         </div>
-      </div>
       <div className="d-flex justify-content-center mt-5">
         <h3 className="mt-4">Años de Experiencia</h3>
       </div>
@@ -148,6 +149,7 @@ export const Completaperfil = () => {
             id="flexRadioDefault1"
             checked
           />
+          
           <label className="form-check-label me-5" for="flexRadioDefault1">
             0 - 1 Año
           </label>
