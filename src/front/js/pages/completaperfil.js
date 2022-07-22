@@ -13,10 +13,10 @@ export const Completaperfil = () => {
     actions.getIdiomas();
   }, []);
   const agregarIdioma = () => {
-    const body={
-      idioma_id:idiomaSelected
-    }
-    actions.agregarIdioma(body)
+    const body = {
+      idioma_id: idiomaSelected,
+    };
+    actions.agregarIdioma(body);
   };
   return (
     <div>
@@ -105,7 +105,7 @@ export const Completaperfil = () => {
           <select
             className="form-select w-25"
             aria-label="Default select example"
-            onClick={(e)=>setIdiomaSelected(e.target.value)}
+            onClick={(e) => setIdiomaSelected(e.target.value)}
           >
             <option selected>Selecciona Idioma</option>
 
@@ -126,17 +126,16 @@ export const Completaperfil = () => {
             <option value="4">Nativo</option>
           </select>
         </div>
-       
       </div>
       <div className="d-flex justify-content-center mt-5">
-          <button
-            className="bg-black text-white w-25"
-            type="button"
-            onClick={() => agregarIdioma()}
-          >
-            Agregar idioma
-          </button>
-        </div>
+        <button
+          className="bg-black text-white w-25"
+          type="button"
+          onClick={() => agregarIdioma()}
+        >
+          Agregar idioma
+        </button>
+      </div>
       <div className="d-flex justify-content-center mt-5">
         <h3 className="mt-4">Años de Experiencia</h3>
       </div>
@@ -149,7 +148,7 @@ export const Completaperfil = () => {
             id="flexRadioDefault1"
             checked
           />
-          
+
           <label className="form-check-label me-5" for="flexRadioDefault1">
             0 - 1 Año
           </label>
@@ -179,8 +178,14 @@ export const Completaperfil = () => {
           </label>
         </div>
 
-        
-          
+        <div className="form-check">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="flexRadioDefault"
+            id="flexRadioDefault4"
+            checked
+          />
           <label className="form-check-label me-5" for="flexRadioDefault4">
             5+ Años
           </label>
