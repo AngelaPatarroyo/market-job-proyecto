@@ -7,10 +7,11 @@ export const Completaperfil = () => {
   const { store, actions } = useContext(Context);
   const [idFreelancerSelected, setIdFreelancerSelected] = useState(null);
   const [idiomaSelected, setIdiomaSelected] = useState(null);
-
+  const [experienciaSelected, setexperienciaSelected] = useState(null);
   useEffect(() => {
     actions.getTipodeFreelancer();
     actions.getIdiomas();
+    actions.getExperiencias();
   }, []);
   const agregarIdioma = () => {
     const body = {
@@ -150,7 +151,11 @@ export const Completaperfil = () => {
           />
 
           <label className="form-check-label me-5" for="flexRadioDefault1">
-            0 - 1 Año
+          {store.experiencias.map((item, index) => (
+              <option value={item.id} key={index}>
+                {item.experiencias}
+              </option>
+            ))}
           </label>
         </div>
         <div className="form-check">
