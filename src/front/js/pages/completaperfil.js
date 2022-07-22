@@ -179,14 +179,8 @@ export const Completaperfil = () => {
           </label>
         </div>
 
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault4"
-            checked
-          />
+        
+          
           <label className="form-check-label me-5" for="flexRadioDefault4">
             5+ Años
           </label>
