@@ -62,14 +62,12 @@ class FreelancerIdiomas(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     idioma_id = db.Column(db.Integer, db.ForeignKey("t_idiomas.id"))
     id_freelancer = db.Column(db.Integer, db.ForeignKey("t_usuarios.id"))
-    nivel = db.Column(db.String(20))
 
     def serialize(self):
         return {
             "id": self.id,
             "idioma_id": self.idioma_id,
             "id_freelancer": self.id_freelancer,
-            "nivel": self.nivel
         }
 class Idiomas(db.Model):
     __tablename__ = 't_idiomas'
