@@ -7,17 +7,58 @@ export const Completaperfil = () => {
   const { store, actions } = useContext(Context);
   const [idFreelancerSelected, setIdFreelancerSelected] = useState(null);
   const [idiomaSelected, setIdiomaSelected] = useState(null);
+  const [experienciaSelected, setExperienciaSelected] = useState(null);
+  const [descripcion, setDescripcion] = useState(null);
+  const [imagen, setImagen] = useState(" ");
+  const [linkedin, setLinkedin] = useState(null);
+  const [portafolio, setPortafolio] = useState(null);
+  const [tarifa, setTarifa] = useState(null);
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    const body = {
+      tipo_freelancer: idFreelancerSelected,
+      descripcion: descripcion,
+      imagen: imagen,
+      linkedin: linkedin,
+      portafolio: portafolio,
+      tarifa: tarifa,
+      experiencia_id: experienciaSelected,
+    };
+    actions
+      .completarPerfil(body)
+      .then((resp) => {
+        console.log(resp);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    //actions.signup(body);
+    /*actions
+        .signup(body)
+        .then((resp) => {
+          console.log(resp);
+          navigate("/login")
+        })
+        .catch((error) => {
+          console.log(error);
+        }
+        );*/
+  };
 
   useEffect(() => {
     actions.getTipodeFreelancer();
     actions.getIdiomas();
+    actions.getExperiencias();
   }, []);
   const agregarIdioma = () => {
-    const body={
-      idioma_id:idiomaSelected
-    }
-    actions.agregarIdioma(body)
+    const body = {
+      idioma_id: idiomaSelected,
+    };
+    actions.agregarIdioma(body);
   };
+
   return (
     <div>
       <div className="mt-5">
@@ -58,11 +99,13 @@ export const Completaperfil = () => {
             name="text_input"
             placeholder="Describe tu experiencia..."
             required=""
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
         <div
           className="container justify-content-center"
-          stile={{ width: "100px" }}
+          style={{ width: "100px" }}
         >
           <div className="input-group mb-2 mt-5">
             <span
@@ -77,6 +120,8 @@ export const Completaperfil = () => {
               type="text"
               className="form-control"
               placeholder="Perfil de Linkedin"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
             />
           </div>
 
@@ -93,6 +138,8 @@ export const Completaperfil = () => {
               type="text"
               className="form-control"
               placeholder="(Opcional)"
+              value={portafolio}
+              onChange={(e) => setPortafolio(e.target.value)}
             />
           </div>
         </div>
@@ -105,7 +152,7 @@ export const Completaperfil = () => {
           <select
             className="form-select w-25"
             aria-label="Default select example"
-            onClick={(e)=>setIdiomaSelected(e.target.value)}
+            onClick={(e) => setIdiomaSelected(e.target.value)}
           >
             <option selected>Selecciona Idioma</option>
 
@@ -126,72 +173,39 @@ export const Completaperfil = () => {
             <option value="4">Nativo</option>
           </select>
         </div>
-       
       </div>
       <div className="d-flex justify-content-center mt-5">
-          <button
-            className="bg-black text-white w-25"
-            type="button"
-            onClick={() => agregarIdioma()}
-          >
-            Agregar idioma
-          </button>
-        </div>
+        <button
+          className="bg-black text-white w-25"
+          type="button"
+          onClick={() => agregarIdioma()}
+        >
+          Agregar idioma
+        </button>
+      </div>
       <div className="d-flex justify-content-center mt-5">
         <h3 className="mt-4">Años de Experiencia</h3>
       </div>
       <div className="d-flex justify-content-center p-5">
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-          />
-          
-          <label className="form-check-label me-5" for="flexRadioDefault1">
-            0 - 1 Año
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            checked
-          />
-          <label className="form-check-label me-5 " for="flexRadioDefault2">
-            1 - 3 Años
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault3"
-            checked
-          />
-          <label className="form-check-label me-5" for="flexRadioDefault3">
-            3 - 5 Años
-          </label>
-        </div>
-
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault4"
-            checked
-          />
-          <label className="form-check-label me-5" for="flexRadioDefault4">
-            5+ Años
-          </label>
-        </div>
+        {store.experiencias.map((item, index) => (
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+              checked
+              onClick={() => setExperienciaSelected(item.id)}
+            />
+            <label className="form-check-label me-5" for="flexRadioDefault1">
+              <option value={item.id} key={index}>
+                {item.experiencia}
+              </option>
+            </label>
+          </div>
+        ))}
       </div>
+
       <div className="d-flex justify-content-center mt-3">
         <h3>Tarifa por Hora</h3>
       </div>
@@ -203,12 +217,19 @@ export const Completaperfil = () => {
           <input
             type="text"
             class="form-control col-xs-2"
-            placeholder="Precio en Dolares"
+            placeholder="Precio en Dólares"
+            value={tarifa}
+            onChange={(e) => setTarifa(e.target.value)}
           />
         </div>
       </div>
       <div className="d-flex justify-content-center mt-4">
-        <button type="button" className="btn btn-dark mb-5">
+        <button
+          className="btn btn-dark mb-5"
+          type="submit"
+          id="submit"
+          onClick={onSubmit}
+        >
           Guardar
         </button>
       </div>

@@ -19,6 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       tipoFreelancer: [],
       idiomas: [],
       idiomasFreelancer: [],
+      experiencias: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -125,7 +126,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             }
           );
           const data = await resp.json();
-          setStore({"idiomasFreelancer":data})
+          setStore({ idiomasFreelancer: data });
           console.log(data);
           return data;
         } catch (error) {
@@ -150,12 +151,55 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ idiomas: data });
           return data;
         } catch (error) {
-          console.log("Error registro", error);
+          console.log("Error idiomas", error);
         }
       },
       agregarIdioma: async (body) => {
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/add_idioma", {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/add_idioma",
+            {
+              method: "POST",
+              body: JSON.stringify(body),
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+          getActions().getIdiomasFreelancer();
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error agregar idioma", error);
+        }
+      },
+      getExperiencias: async () => {
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/get_experiencias",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+
+          console.log(data);
+          setStore({ experiencias: data });
+          return data;
+        } catch (error) {
+          console.log("Error experiencias", error);
+        }
+      },
+      completarPerfil: async (body) => {
+        console.log(body);
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/completar_perfil", {
             method: "POST",
             body: JSON.stringify(body),
             headers: {
@@ -164,11 +208,11 @@ const getState = ({ getStore, getActions, setStore }) => {
             },
           });
           const data = await resp.json();
-          getActions().getIdiomasFreelancer();
+
           console.log(data);
           return data;
         } catch (error) {
-          console.log("Error agregar idioma", error);
+          console.log("Error al completar perfil", error);
         }
       },
       changeColor: (index, color) => {
