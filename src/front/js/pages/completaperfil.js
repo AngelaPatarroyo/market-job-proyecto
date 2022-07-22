@@ -19,6 +19,12 @@ export const Completaperfil = () => {
     };
     actions.agregarIdioma(body);
   };
+  const getExperiencias = () => {
+    const body = {
+      id: experienciaSelected,
+    };
+    actions.getExperiencias(body);
+  };
   return (
     <div>
       <div className="mt-5">
@@ -148,12 +154,13 @@ export const Completaperfil = () => {
             name="flexRadioDefault"
             id="flexRadioDefault1"
             checked
+            onClick={(e) => setExperienciaSelected(e.target.value)}
           />
 
           <label className="form-check-label me-5" for="flexRadioDefault1">
-          {store.experiencias.map((item, index) => (
+            {store.experiencias.map((item, index) => (
               <option value={item.id} key={index}>
-                {item.experiencias}
+                {item.experiencia}
               </option>
             ))}
           </label>
