@@ -13,20 +13,29 @@ export const Completaperfil = () => {
   const [linkedin, setLinkedin] = useState(null);
   const [portafolio, setPortafolio] = useState(null);
   const [tarifa, setTarifa] = useState(null);
-  
+
   const onSubmit = (e) => {
     e.preventDefault();
-        const body = {
-        tipo_freelancer: idFreelancerSelected,
-        descripcion: descripcion,
-        imagen: imagen,
-        linkedin: linkedin,
-        portafolio: portafolio,
-        tarifa: tarifa,
-        experiencia_id: experienciaSelected,
-      };
-      //actions.signup(body);
-      actions
+    const body = {
+      tipo_freelancer: idFreelancerSelected,
+      descripcion: descripcion,
+      imagen: imagen,
+      linkedin: linkedin,
+      portafolio: portafolio,
+      tarifa: tarifa,
+      experiencia_id: experienciaSelected,
+    };
+    actions
+      .completarPerfil(body)
+      .then((resp) => {
+        console.log(resp);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    //actions.signup(body);
+    /*actions
         .signup(body)
         .then((resp) => {
           console.log(resp);
@@ -35,9 +44,7 @@ export const Completaperfil = () => {
         .catch((error) => {
           console.log(error);
         }
-        );
-    
-    
+        );*/
   };
 
   useEffect(() => {
@@ -51,7 +58,7 @@ export const Completaperfil = () => {
     };
     actions.agregarIdioma(body);
   };
-  
+
   return (
     <div>
       <div className="mt-5">
@@ -217,7 +224,12 @@ export const Completaperfil = () => {
         </div>
       </div>
       <div className="d-flex justify-content-center mt-4">
-        <button type="button" className="btn btn-dark mb-5">
+        <button
+          className="btn btn-dark mb-5"
+          type="submit"
+          id="submit"
+          onClick={onSubmit}
+        >
           Guardar
         </button>
       </div>

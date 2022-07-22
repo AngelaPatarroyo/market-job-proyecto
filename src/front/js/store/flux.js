@@ -196,6 +196,25 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error experiencias", error);
         }
       },
+      completarPerfil: async (body) => {
+        console.log(body);
+        try {
+          const resp = await fetch(process.env.BACKEND_URL + "/api/completar_perfil", {
+            method: "POST",
+            body: JSON.stringify(body),
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("accessToken"),
+            },
+          });
+          const data = await resp.json();
+
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error al completar perfil", error);
+        }
+      },
       changeColor: (index, color) => {
         //get the store
         const store = getStore();
