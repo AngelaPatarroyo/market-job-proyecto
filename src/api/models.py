@@ -67,7 +67,7 @@ class FreelancerIdiomas(db.Model):
         return {
             "id": self.id,
             "idioma_id": self.idioma_id,
-            "id_freelancer": self.id_freelancer
+            "id_freelancer": self.id_freelancer,
         }
 class Idiomas(db.Model):
     __tablename__ = 't_idiomas'
@@ -84,12 +84,14 @@ class TipoFreelancer(db.Model):
     __tablename__ = 't_tipo_freelancers'
     id = db.Column(db.Integer, primary_key=True)
     tipo = db.Column(db.String(100))
+    icono = db.Column(db.String(100))
 
 
     def serialize(self):
         return {
             "id": self.id,
-            "tipo": self.tipo
+            "tipo": self.tipo,
+            "icono": self.icono
         }
 
 class Experiencia(db.Model):
