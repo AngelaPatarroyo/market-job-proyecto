@@ -147,61 +147,24 @@ export const Completaperfil = () => {
         <h3 className="mt-4">Años de Experiencia</h3>
       </div>
       <div className="d-flex justify-content-center p-5">
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault1"
-            checked
-            onClick={(e) => setExperienciaSelected(e.target.value)}
-          />
+        {store.experiencias.map((item, index) => (
+          <div className="form-check">
+            <input
+              className="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+              checked
+              onClick={(e) => setExperienciaSelected(e.target.value)}
+            />
 
-          <label className="form-check-label me-5" for="flexRadioDefault1">
-            {store.experiencias.map((item, index) => (
+            <label className="form-check-label me-5" for="flexRadioDefault1">
               <option value={item.id} key={index}>
                 {item.experiencia}
               </option>
-            ))}
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault2"
-            checked
-          />
-          <label className="form-check-label me-5 " for="flexRadioDefault2">
-            1 - 3 Años
-          </label>
-        </div>
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault3"
-            checked
-          />
-          <label className="form-check-label me-5" for="flexRadioDefault3">
-            3 - 5 Años
-          </label>
-        </div>
-
-        <div className="form-check">
-          <input
-            className="form-check-input"
-            type="radio"
-            name="flexRadioDefault"
-            id="flexRadioDefault4"
-            checked
-          />
-          <label className="form-check-label me-5" for="flexRadioDefault4">
-            5+ Años
-          </label>
-        </div>
+            </label>
+          </div>
+        ))}
       </div>
       <div className="d-flex justify-content-center mt-3">
         <h3>Tarifa por Hora</h3>
