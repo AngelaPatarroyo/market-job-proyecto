@@ -240,6 +240,16 @@ def cargar_datos():
         db.session.add(new_tipo_freelancer_3)
         db.session.add(new_tipo_freelancer_4)
 
+    experiencias= Experiencia.query.all()
+    if not experiencias:
+        new_experiencias_1 = Experiencia(id=1, nombre="Junior", experiencia= "0 - 1 Año" )
+        new_experiencias_2 = Experiencia(id=2, nombre="Mid Senior", experiencia= "1 - 3 Años" )
+        new_experiencias_3 = Experiencia(id=3, nombre="Senior", experiencia= "3 - 5 Años" )
+        new_experiencias_4 = Experiencia(id=4, nombre="Advance", experiencia= "5+ Años" )
+        db.session.add(new_experiencias_1)
+        db.session.add(new_experiencias_2)
+        db.session.add(new_experiencias_3)
+        db.session.add(new_experiencias_4)
 
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
