@@ -211,6 +211,30 @@ def cargar_perfil(id):
     }
     return jsonify(info_completa),200
 
+@api.route('/ver_perfiles/', methods=['GET'])
+# @jwt_required()
+def ver_perfiles():  
+    id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
+    array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
+    array_resumenes_freelancer = []
+    for u in array_usuarios:
+        perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
+        tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first().tipo
+        experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first().nombre
+
+        info_resumen = {
+            "nombre": u.nombre,
+            "tipo_freelancer": tipo_freelancer,
+            "experiencia": experiencia,
+            "tarifa": perfil_freelancer.tarifa,
+            "imagen": perfil_freelancer.imagen
+        }
+        array_resumenes_freelancer.append(info_resumen)
+    
+    return jsonify(array_resumenes_freelancer), 200
+
+
+
 @api.route('/cargar_datos/', methods=['GET'])  
 def cargar_datos():
     rol = Rol.query.all()
