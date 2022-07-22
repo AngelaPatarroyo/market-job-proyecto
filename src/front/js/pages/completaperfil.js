@@ -7,7 +7,39 @@ export const Completaperfil = () => {
   const { store, actions } = useContext(Context);
   const [idFreelancerSelected, setIdFreelancerSelected] = useState(null);
   const [idiomaSelected, setIdiomaSelected] = useState(null);
-  const [experienciaSelected, setexperienciaSelected] = useState(null);
+  const [experienciaSelected, setExperienciaSelected] = useState(null);
+  const [descripcion, setDescripcion] = useState(null);
+  const [imagen, setImagen] = useState(" ");
+  const [linkedin, setLinkedin] = useState(null);
+  const [portafolio, setPortafolio] = useState(null);
+  const [tarifa, setTarifa] = useState(null);
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
+        const body = {
+        tipo_freelancer: idFreelancerSelected,
+        descripcion: descripcion,
+        imagen: imagen,
+        linkedin: linkedin,
+        portafolio: portafolio,
+        tarifa: tarifa,
+        experiencia_id: experienciaSelected,
+      };
+      //actions.signup(body);
+      actions
+        .signup(body)
+        .then((resp) => {
+          console.log(resp);
+          navigate("/login")
+        })
+        .catch((error) => {
+          console.log(error);
+        }
+        );
+    
+    
+  };
+
   useEffect(() => {
     actions.getTipodeFreelancer();
     actions.getIdiomas();
@@ -19,12 +51,7 @@ export const Completaperfil = () => {
     };
     actions.agregarIdioma(body);
   };
-  const getExperiencias = () => {
-    const body = {
-      id: experienciaSelected,
-    };
-    actions.getExperiencias(body);
-  };
+  
   return (
     <div>
       <div className="mt-5">
@@ -65,11 +92,13 @@ export const Completaperfil = () => {
             name="text_input"
             placeholder="Describe tu experiencia..."
             required=""
+            value={descripcion}
+            onChange={(e) => setDescripcion(e.target.value)}
           />
         </div>
         <div
           className="container justify-content-center"
-          stile={{ width: "100px" }}
+          style={{ width: "100px" }}
         >
           <div className="input-group mb-2 mt-5">
             <span
@@ -84,6 +113,8 @@ export const Completaperfil = () => {
               type="text"
               className="form-control"
               placeholder="Perfil de Linkedin"
+              value={linkedin}
+              onChange={(e) => setLinkedin(e.target.value)}
             />
           </div>
 
@@ -100,6 +131,8 @@ export const Completaperfil = () => {
               type="text"
               className="form-control"
               placeholder="(Opcional)"
+              value={portafolio}
+              onChange={(e) => setPortafolio(e.target.value)}
             />
           </div>
         </div>
@@ -155,9 +188,8 @@ export const Completaperfil = () => {
               name="flexRadioDefault"
               id="flexRadioDefault1"
               checked
-              onClick={(e) => setExperienciaSelected(e.target.value)}
+              onClick={() => setExperienciaSelected(item.id)}
             />
-
             <label className="form-check-label me-5" for="flexRadioDefault1">
               <option value={item.id} key={index}>
                 {item.experiencia}
@@ -166,6 +198,7 @@ export const Completaperfil = () => {
           </div>
         ))}
       </div>
+
       <div className="d-flex justify-content-center mt-3">
         <h3>Tarifa por Hora</h3>
       </div>
@@ -177,7 +210,9 @@ export const Completaperfil = () => {
           <input
             type="text"
             class="form-control col-xs-2"
-            placeholder="Precio en Dolares"
+            placeholder="Precio en Dólares"
+            value={tarifa}
+            onChange={(e) => setTarifa(e.target.value)}
           />
         </div>
       </div>
