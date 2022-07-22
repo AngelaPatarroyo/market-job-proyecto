@@ -75,7 +75,7 @@ export const Completaperfil = () => {
                 style={{ width: "350px" }}
                 onClick={() => setIdFreelancerSelected(item.id)}
               >
-                <i className="fas fa-code" /> {item.tipo}
+                <i className={item.icono} /> {item.tipo}
               </button>
             ))}
           </div>
@@ -107,40 +107,43 @@ export const Completaperfil = () => {
           className="container justify-content-center"
           style={{ width: "100px" }}
         >
-          <div className="input-group mb-2 mt-5">
+          <div className="input-group mb-2 mt-5 d-flex justify-content-center">
             <span
               className="input-group-text aoptiongn-items-center"
               style={{ height: "50px" }}
               id="basic-addon1"
             >
               <i className="fab fa-optionnkedin"></i>
-            </span>
+            
             <input
-              style={{ width: "100px" }}
+              style={{ width: "350px" }}
               type="text"
               className="form-control"
               placeholder="Perfil de Linkedin"
               value={linkedin}
               onChange={(e) => setLinkedin(e.target.value)}
             />
+            </span>
           </div>
 
-          <div className="input-group mb-2 mt-5">
+          <div className="input-group mb-2 mt-5 d-flex justify-content-center">
             <span
-              className="input-group-text aoptiongn-items-center"
+              className="input-group-text aoptiongn-items-center pe-3"
               style={{ height: "50px" }}
               id="basic-addon1"
             >
               Portafolio
-            </span>
+            
+
             <input
-              style={{ width: "100px" }}
+              style={{ width: "300px" }}
               type="text"
-              className="form-control"
+              className="form-control ms-3"
               placeholder="(Opcional)"
               value={portafolio}
               onChange={(e) => setPortafolio(e.target.value)}
             />
+            </span>
           </div>
         </div>
       </div>
@@ -161,16 +164,6 @@ export const Completaperfil = () => {
                 {item.idioma}
               </option>
             ))}
-          </select>
-          <select
-            className="form-select w-25 ms-4"
-            aria-label="Default select example"
-          >
-            <option selected>Selecciona Nivel</option>
-            <option value="1">Básico</option>
-            <option value="2">Intermedio</option>
-            <option value="3">Avanzado</option>
-            <option value="4">Nativo</option>
           </select>
         </div>
       </div>
@@ -194,7 +187,6 @@ export const Completaperfil = () => {
               type="radio"
               name="flexRadioDefault"
               id="flexRadioDefault1"
-              checked
               onClick={() => setExperienciaSelected(item.id)}
             />
             <label className="form-check-label me-5" for="flexRadioDefault1">
