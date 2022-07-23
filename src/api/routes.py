@@ -217,7 +217,7 @@ def ver_perfiles():
     id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
     array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
     array_resumenes_freelancer = []
-    for u in array_usuarios:
+    for u in array_usuarios_freelancer:
         perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
         tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first().tipo
         experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first().nombre
