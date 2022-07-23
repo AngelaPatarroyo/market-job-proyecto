@@ -56,7 +56,9 @@ export const Completaperfil = () => {
     const body = {
       idioma_id: idiomaSelected,
     };
-    actions.agregarIdioma(body);
+    actions.agregarIdioma(body).then((resp) => {
+      console.log(resp);
+    });
   };
 
   return (
@@ -114,15 +116,15 @@ export const Completaperfil = () => {
               id="basic-addon1"
             >
               <i className="fab fa-optionnkedin"></i>
-            
-            <input
-              style={{ width: "350px" }}
-              type="text"
-              className="form-control"
-              placeholder="Perfil de Linkedin"
-              value={linkedin}
-              onChange={(e) => setLinkedin(e.target.value)}
-            />
+
+              <input
+                style={{ width: "350px" }}
+                type="text"
+                className="form-control"
+                placeholder="Perfil de Linkedin"
+                value={linkedin}
+                onChange={(e) => setLinkedin(e.target.value)}
+              />
             </span>
           </div>
 
@@ -133,16 +135,14 @@ export const Completaperfil = () => {
               id="basic-addon1"
             >
               Portafolio
-            
-
-            <input
-              style={{ width: "300px" }}
-              type="text"
-              className="form-control ms-3"
-              placeholder="(Opcional)"
-              value={portafolio}
-              onChange={(e) => setPortafolio(e.target.value)}
-            />
+              <input
+                style={{ width: "300px" }}
+                type="text"
+                className="form-control ms-3"
+                placeholder="(Opcional)"
+                value={portafolio}
+                onChange={(e) => setPortafolio(e.target.value)}
+              />
             </span>
           </div>
         </div>
@@ -150,6 +150,7 @@ export const Completaperfil = () => {
       <div className="d-flex justify-content-center mt-5">
         <h3>Idiomas</h3>
       </div>
+
       <div className="d-flex justify-content-center mt-5 ">
         <div className="container d-flex justify-content-center">
           <select
@@ -159,14 +160,25 @@ export const Completaperfil = () => {
           >
             <option selected>Selecciona Idioma</option>
 
-            {store.idiomas.map((item, index) => (
-              <option value={item.id} key={index}>
-                {item.idioma}
-              </option>
-            ))}
+            {store.idiomas.map((item, index) => {
+              if (!store.idiomasFreelancer?.includes({idioma:item})) {
+                return (
+                  <option value={item.id} key={index}>
+                    {item.idioma}
+                  </option>
+                );
+              }
+            })}
           </select>
         </div>
       </div>
+
+      {store.idiomasFreelancer.map((item, index) => (
+        <div className="d-flex justify-content-center mt-5">
+          <span>{item.nombre}</span>
+        </div>
+      ))}
+
       <div className="d-flex justify-content-center mt-5">
         <button
           className="bg-black text-white w-25"

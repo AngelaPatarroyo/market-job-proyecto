@@ -127,10 +127,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const data = await resp.json();
           setStore({ idiomasFreelancer: data });
-          console.log(data);
           return data;
         } catch (error) {
-          console.log("Error registro", error);
+          console.log("Error al obtener idiomas", error);
         }
       },
       getIdiomas: async () => {
