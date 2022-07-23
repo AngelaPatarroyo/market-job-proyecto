@@ -284,10 +284,23 @@ def cargar_datos():
         new_experiencias_2 = Experiencia(id=2, nombre="Mid Senior", experiencia= "1 - 3 Años" )
         new_experiencias_3 = Experiencia(id=3, nombre="Senior", experiencia= "3 - 5 Años" )
         new_experiencias_4 = Experiencia(id=4, nombre="Advance", experiencia= "5+ Años" )
+
+    usuarios= Usuario.query.all()
+    if not usuarios:
+        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '3006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+
+        new_perfil_freelancer_1 = Usuario (id=1, tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 10, experiencia_id= 3)
+
         db.session.add(new_experiencias_1)
         db.session.add(new_experiencias_2)
         db.session.add(new_experiencias_3)
         db.session.add(new_experiencias_4)
+
+        db.session.add(new_usuario_1)
+
+        db.session.add(new_perfil_freelancer_1)
+
+
 
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
