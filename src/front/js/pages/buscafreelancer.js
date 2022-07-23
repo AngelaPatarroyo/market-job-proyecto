@@ -4,13 +4,12 @@ import { Context } from "../store/appContext";
 
 export const Buscafreelancer = () => {
   const { store, actions } = useContext(Context);
-  const [idFreelancerSelected, setIdFreelancerSelected] = useState(null);
-  const [experienciaSelected, setExperienciaSelected] = useState(null);
-  const [tarifa, setTarifa] = useState(null);
+  const [idTipo, setIdTipo] = useState(null);
+  const [idExperiencia, setIdExperiencia] = useState(null);
 
   const onSubmit = (e) => {
     e.preventDefault();
-    const body = {
+    /*const body = {
       tipo_freelancer: idFreelancerSelected,
       descripcion: descripcion,
       imagen: imagen,
@@ -18,7 +17,7 @@ export const Buscafreelancer = () => {
       portafolio: portafolio,
       tarifa: tarifa,
       experiencia_id: experienciaSelected,
-    };
+    };*/
     actions
       .completarPerfil(body)
       .then((resp) => {
@@ -53,9 +52,9 @@ export const Buscafreelancer = () => {
             <select
               className="form-select w-25"
               aria-label="Default select example"
-              onClick={(e) => getTipodeFreelancer(e.target.value)}
+              onClick={() => setIdTipo(item.id)}
             >
-              <option selected>Selleciona tipo de Freelancer</option>
+              <option selected>Selecciona tipo de Freelancer</option>
 
               {store.tipoFreelancer.map((item, index) => (
                 <option value={item.id} key={index}>
@@ -77,7 +76,7 @@ export const Buscafreelancer = () => {
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
-                  onClick={() => setExperienciaSelected(item.id)}
+                  onClick={() => setIdExperiencia(item.id)}
                 />
                 <label
                   className="form-check-label me-5"
@@ -91,6 +90,16 @@ export const Buscafreelancer = () => {
             ))}
           </div>
         </div>
+      </div>
+      <div justify-content-center>
+      <button
+                  type="submit"
+                  className="justify-content-center mt-4"
+                  id="submit"
+                  onClick={onSubmit}
+                >
+                  Buscar
+                </button>     
       </div>
       <div className="container mb-5">
         <div className="container">
@@ -117,7 +126,6 @@ export const Buscafreelancer = () => {
                 </button>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
