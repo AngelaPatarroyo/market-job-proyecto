@@ -211,41 +211,41 @@ def cargar_perfil(id):
     }
     return jsonify(info_completa),200
 
-@api.route('/ver_perfiles/', methods=['GET'])
-# @jwt_required()
-def ver_perfiles():  
-    id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
-    id_tipo_freelancer = int(request.args.get("id_tipo", False))
-    id_experiencia = int(request.args.get("id_experiencia", False))
-    array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
-    array_resumenes_freelancer = []
-    for u in array_usuarios_freelancer:
-        perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
-        tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first()
-        experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
+# @api.route('/ver_perfiles/', methods=['GET'])
+# # @jwt_required()
+# def ver_perfiles():  
+#     id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
+#     id_tipo_freelancer = int(request.args.get("id_tipo", False))
+#     id_experiencia = int(request.args.get("id_experiencia", False))
+#     array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
+#     array_resumenes_freelancer = []
+#     for u in array_usuarios_freelancer:
+#         perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
+#         tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first()
+#         experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
 
-        info_resumen = {
-            "nombre": u.nombre,
-            "tipo_freelancer": tipo_freelancer.tipo,
-            "experiencia": experiencia.nombre,
-            "tarifa": int(perfil_freelancer.tarifa),
-            "imagen": perfil_freelancer.imagen
-        }
-        if id_tipo_freelancer and not id_experiencia: 
-            if tipo_freelancer.id == id_tipo_freelancer:
-                array_resumenes_freelancer.append(info_resumen)
-        elif id_experiencia and not id_tipo_freelancer:
-            if experiencia.id == id_experiencia:
-                array_resumenes_freelancer.append(info_resumen)
-        elif id_tipo_freelancer and id_experiencia:
-            if tipo_freelancer.id == id_tipo_freelancer and experiencia.id == id_experiencia:
-                array_resumenes_freelancer.append(info_resumen)
-        else:
-            array_resumenes_freelancer.append(info_resumen)
+#         info_resumen = {
+#             "nombre": u.nombre,
+#             "tipo_freelancer": tipo_freelancer.tipo,
+#             "experiencia": experiencia.nombre,
+#             "tarifa": int(perfil_freelancer.tarifa),
+#             "imagen": perfil_freelancer.imagen
+#         }
+#         if id_tipo_freelancer and not id_experiencia: 
+#             if tipo_freelancer.id == id_tipo_freelancer:
+#                 array_resumenes_freelancer.append(info_resumen)
+#         elif id_experiencia and not id_tipo_freelancer:
+#             if experiencia.id == id_experiencia:
+#                 array_resumenes_freelancer.append(info_resumen)
+#         elif id_tipo_freelancer and id_experiencia:
+#             if tipo_freelancer.id == id_tipo_freelancer and experiencia.id == id_experiencia:
+#                 array_resumenes_freelancer.append(info_resumen)
+#         else:
+#             array_resumenes_freelancer.append(info_resumen)
 
 
     
-    return jsonify(array_resumenes_freelancer), 200
+#     return jsonify(array_resumenes_freelancer), 200
 
 
 
@@ -260,12 +260,34 @@ def cargar_datos():
    
     idiomas= Idiomas.query.all()
     if not idiomas:
-        new_idioma_1 = Idiomas(id=1, idioma="Ingles" )
-        new_idioma_2 = Idiomas(id=2, idioma="Espanol" )
-        new_idioma_3 = Idiomas(id=3, idioma="Frances" )
+        new_idioma_1 = Idiomas(id=1, idioma="Inglés" )
+        new_idioma_2 = Idiomas(id=2, idioma="Español" )
+        new_idioma_3 = Idiomas(id=3, idioma="Francés" )
+        new_idioma_4 = Idiomas(id=4, idioma="Alemán" )
+        new_idioma_5 = Idiomas(id=5, idioma="Portugués" )
+        new_idioma_6 = Idiomas(id=6, idioma="Chino mandarín" )
+        new_idioma_7 = Idiomas(id=7, idioma="Hindi" )
+        new_idioma_8 = Idiomas(id=8, idioma="Ruso" )
+        new_idioma_9 = Idiomas(id=9, idioma="Japonés" )
+        new_idioma_10 = Idiomas(id=10, idioma="Coreano" )
+        new_idioma_11 = Idiomas(id=11, idioma="Italiano" )
+        new_idioma_12 = Idiomas(id=12, idioma="Árabe" )
+        new_idioma_13 = Idiomas(id=13, idioma="Turco" )
+        
+        
         db.session.add(new_idioma_1)
         db.session.add(new_idioma_2)
         db.session.add(new_idioma_3)
+        db.session.add(new_idioma_4)
+        db.session.add(new_idioma_5)
+        db.session.add(new_idioma_6)
+        db.session.add(new_idioma_7)
+        db.session.add(new_idioma_8)
+        db.session.add(new_idioma_9)
+        db.session.add(new_idioma_10)
+        db.session.add(new_idioma_11)
+        db.session.add(new_idioma_12)
+        db.session.add(new_idioma_13)
     
     tipos_freelancer= TipoFreelancer.query.all()
     if not tipos_freelancer:
@@ -284,23 +306,27 @@ def cargar_datos():
         new_experiencias_2 = Experiencia(id=2, nombre="Mid Senior", experiencia= "1 - 3 Años" )
         new_experiencias_3 = Experiencia(id=3, nombre="Senior", experiencia= "3 - 5 Años" )
         new_experiencias_4 = Experiencia(id=4, nombre="Advance", experiencia= "5+ Años" )
-
-    usuarios= Usuario.query.all()
-    if not usuarios:
-        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '3006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-
-        new_perfil_freelancer_1 = Usuario (id=1, tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 10, experiencia_id= 3)
-
         db.session.add(new_experiencias_1)
         db.session.add(new_experiencias_2)
         db.session.add(new_experiencias_3)
         db.session.add(new_experiencias_4)
 
+    usuarios= Usuario.query.all()
+    if not usuarios:
+        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '3006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
         db.session.add(new_usuario_1)
+   
+    perfiles= PerfilFreelancer.query.all()
+    if not perfiles:
+        new_perfil_freelancer_1 = PerfilFreelancer (id=1, tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 10, experiencia_id= 3)
 
         db.session.add(new_perfil_freelancer_1)
 
+    freelancer_idiomas= FreelancerIdiomas.query.all()
+    if not freelancer_idiomas:
+        new_freelancer_idioma_1 = FreelancerIdiomas(id=1, idioma_id=2, id_freelancer=1)
 
+        db.session.add(new_perfil_freelancer_1)
 
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
