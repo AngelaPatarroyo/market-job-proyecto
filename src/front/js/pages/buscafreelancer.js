@@ -9,20 +9,15 @@ export const Buscafreelancer = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    /*const body = {
-      tipo_freelancer: idFreelancerSelected,
-      descripcion: descripcion,
-      imagen: imagen,
-      linkedin: linkedin,
-      portafolio: portafolio,
-      tarifa: tarifa,
-      experiencia_id: experienciaSelected,
-    };*/
+    console.log("estos son los id");
+    console.log(idTipo);
+    console.log(idExperiencia);
+
     actions
-      .completarPerfil(body)
+      .buscaFreelancer(idTipo, idExperiencia)
       .then((resp) => {
         console.log(resp);
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
         console.log(error);
@@ -52,7 +47,7 @@ export const Buscafreelancer = () => {
             <select
               className="form-select w-25"
               aria-label="Default select example"
-              onClick={() => setIdTipo(item.id)}
+              onChange={(e) => setIdTipo(e.target.value)}
             >
               <option selected>Selecciona tipo de Freelancer</option>
 
@@ -92,14 +87,14 @@ export const Buscafreelancer = () => {
         </div>
       </div>
       <div justify-content-center>
-      <button
-                  type="submit"
-                  className="justify-content-center mt-4"
-                  id="submit"
-                  onClick={onSubmit}
-                >
-                  Buscar
-                </button>     
+        <button
+          type="submit"
+          className="justify-content-center mt-4"
+          id="submit"
+          onClick={onSubmit}
+        >
+          Buscar
+        </button>
       </div>
       <div className="container mb-5">
         <div className="container">

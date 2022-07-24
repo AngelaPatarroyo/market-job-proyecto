@@ -260,12 +260,34 @@ def cargar_datos():
    
     idiomas= Idiomas.query.all()
     if not idiomas:
-        new_idioma_1 = Idiomas(id=1, idioma="Ingles" )
-        new_idioma_2 = Idiomas(id=2, idioma="Espanol" )
-        new_idioma_3 = Idiomas(id=3, idioma="Frances" )
+        new_idioma_1 = Idiomas(id=1, idioma="Inglés" )
+        new_idioma_2 = Idiomas(id=2, idioma="Español" )
+        new_idioma_3 = Idiomas(id=3, idioma="Francés" )
+        new_idioma_4 = Idiomas(id=4, idioma="Alemán" )
+        new_idioma_5 = Idiomas(id=5, idioma="Portugués" )
+        new_idioma_6 = Idiomas(id=6, idioma="Chino mandarín" )
+        new_idioma_7 = Idiomas(id=7, idioma="Hindi" )
+        new_idioma_8 = Idiomas(id=8, idioma="Ruso" )
+        new_idioma_9 = Idiomas(id=9, idioma="Japonés" )
+        new_idioma_10 = Idiomas(id=10, idioma="Coreano" )
+        new_idioma_11 = Idiomas(id=11, idioma="Italiano" )
+        new_idioma_12 = Idiomas(id=12, idioma="Árabe" )
+        new_idioma_13 = Idiomas(id=13, idioma="Turco" )
+        
+        
         db.session.add(new_idioma_1)
         db.session.add(new_idioma_2)
         db.session.add(new_idioma_3)
+        db.session.add(new_idioma_4)
+        db.session.add(new_idioma_5)
+        db.session.add(new_idioma_6)
+        db.session.add(new_idioma_7)
+        db.session.add(new_idioma_8)
+        db.session.add(new_idioma_9)
+        db.session.add(new_idioma_10)
+        db.session.add(new_idioma_11)
+        db.session.add(new_idioma_12)
+        db.session.add(new_idioma_13)
     
     tipos_freelancer= TipoFreelancer.query.all()
     if not tipos_freelancer:
@@ -288,6 +310,25 @@ def cargar_datos():
         db.session.add(new_experiencias_2)
         db.session.add(new_experiencias_3)
         db.session.add(new_experiencias_4)
+
+    usuarios= Usuario.query.all()
+    if not usuarios:
+        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '3006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        db.session.add(new_usuario_1)
+   
+    perfiles= PerfilFreelancer.query.all()
+    if not perfiles:
+        new_perfil_freelancer_1 = PerfilFreelancer (id=1, tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 10, experiencia_id= 3)
+
+        db.session.add(new_perfil_freelancer_1)
+
+    freelancer_idiomas= FreelancerIdiomas.query.all()
+    if not freelancer_idiomas:
+        new_freelancer_idioma_1 = FreelancerIdiomas(id=1, idioma_id=2, id_freelancer=1)
+        new_freelancer_idioma_2 = FreelancerIdiomas(id=2, idioma_id=1, id_freelancer=1)
+
+        db.session.add(new_freelancer_idioma_1)
+        db.session.add(new_freelancer_idioma_2)
 
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
