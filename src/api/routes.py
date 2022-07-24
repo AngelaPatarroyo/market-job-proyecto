@@ -325,8 +325,10 @@ def cargar_datos():
     freelancer_idiomas= FreelancerIdiomas.query.all()
     if not freelancer_idiomas:
         new_freelancer_idioma_1 = FreelancerIdiomas(id=1, idioma_id=2, id_freelancer=1)
+        new_freelancer_idioma_2 = FreelancerIdiomas(id=2, idioma_id=1, id_freelancer=1)
 
-        db.session.add(new_perfil_freelancer_1)
+        db.session.add(new_freelancer_idioma_1)
+        db.session.add(new_freelancer_idioma_2)
 
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
