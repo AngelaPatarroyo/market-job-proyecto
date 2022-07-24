@@ -162,10 +162,10 @@ export const Completaperfil = () => {
             <option selected>Selecciona Idioma</option>
 
             {store.idiomas.map((item, index) => {
-              if (store.idiomasFreelancer?.includes(item)) {
-               console.log(store.idiomasFreelancer)
-               console.log(store.idiomas)
-               console.log(store.idiomasFreelancer.includes(item))
+              if (!store.idiomasFreelancer?.some((obj) => obj.id == item.id)) {
+                console.log(store.idiomasFreelancer);
+                console.log(store.idiomas);
+                console.log(store.idiomasFreelancer.includes(item));
                 return (
                   <option value={item.id} key={index}>
                     {item.idioma}
