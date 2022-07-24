@@ -51,6 +51,7 @@ export const Completaperfil = () => {
     actions.getTipodeFreelancer();
     actions.getIdiomas();
     actions.getExperiencias();
+    actions.getIdiomasFreelancer();
   }, []);
   const agregarIdioma = () => {
     const body = {
@@ -161,7 +162,10 @@ export const Completaperfil = () => {
             <option selected>Selecciona Idioma</option>
 
             {store.idiomas.map((item, index) => {
-              if (!store.idiomasFreelancer?.includes({idioma:item})) {
+              if (store.idiomasFreelancer?.includes(item)) {
+               console.log(store.idiomasFreelancer)
+               console.log(store.idiomas)
+               console.log(store.idiomasFreelancer.includes(item))
                 return (
                   <option value={item.id} key={index}>
                     {item.idioma}
