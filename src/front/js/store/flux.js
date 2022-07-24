@@ -221,12 +221,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       buscaFreelancer: async (id_tipo, id_experiencia) => {
         let params = [];
+        let params_str = "";
 
         if (id_tipo) {
-          params.push("id_tipo" + id_tipo);
+          params.push("id_tipo=" + id_tipo);
         }
         if (id_experiencia) {
-          params.push("id_experiencia" + id_experiencia);
+          params.push("id_experiencia=" + id_experiencia);
         }
 
         params_str = params.join("&");

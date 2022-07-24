@@ -211,41 +211,41 @@ def cargar_perfil(id):
     }
     return jsonify(info_completa),200
 
-# @api.route('/ver_perfiles/', methods=['GET'])
-# # @jwt_required()
-# def ver_perfiles():  
-#     id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
-#     id_tipo_freelancer = int(request.args.get("id_tipo", False))
-#     id_experiencia = int(request.args.get("id_experiencia", False))
-#     array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
-#     array_resumenes_freelancer = []
-#     for u in array_usuarios_freelancer:
-#         perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
-#         tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first()
-#         experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
+@api.route('/ver_perfiles/', methods=['GET'])
+# @jwt_required()
+def ver_perfiles():  
+    id_rol_freelancer = Rol.query.filter_by(nombre="Freelancer").first().id
+    id_tipo_freelancer = int(request.args.get("id_tipo", False))
+    id_experiencia = int(request.args.get("id_experiencia", False))
+    array_usuarios_freelancer = Usuario.query.filter_by(rol = id_rol_freelancer)
+    array_resumenes_freelancer = []
+    for u in array_usuarios_freelancer:
+        perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id).first()
+        tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first()
+        experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
 
-#         info_resumen = {
-#             "nombre": u.nombre,
-#             "tipo_freelancer": tipo_freelancer.tipo,
-#             "experiencia": experiencia.nombre,
-#             "tarifa": int(perfil_freelancer.tarifa),
-#             "imagen": perfil_freelancer.imagen
-#         }
-#         if id_tipo_freelancer and not id_experiencia: 
-#             if tipo_freelancer.id == id_tipo_freelancer:
-#                 array_resumenes_freelancer.append(info_resumen)
-#         elif id_experiencia and not id_tipo_freelancer:
-#             if experiencia.id == id_experiencia:
-#                 array_resumenes_freelancer.append(info_resumen)
-#         elif id_tipo_freelancer and id_experiencia:
-#             if tipo_freelancer.id == id_tipo_freelancer and experiencia.id == id_experiencia:
-#                 array_resumenes_freelancer.append(info_resumen)
-#         else:
-#             array_resumenes_freelancer.append(info_resumen)
+        info_resumen = {
+            "nombre": u.nombre,
+            "tipo_freelancer": tipo_freelancer.tipo,
+            "experiencia": experiencia.nombre,
+            "tarifa": int(perfil_freelancer.tarifa),
+            "imagen": perfil_freelancer.imagen
+        }
+        if id_tipo_freelancer and not id_experiencia: 
+            if tipo_freelancer.id == id_tipo_freelancer:
+                array_resumenes_freelancer.append(info_resumen)
+        elif id_experiencia and not id_tipo_freelancer:
+            if experiencia.id == id_experiencia:
+                array_resumenes_freelancer.append(info_resumen)
+        elif id_tipo_freelancer and id_experiencia:
+            if tipo_freelancer.id == id_tipo_freelancer and experiencia.id == id_experiencia:
+                array_resumenes_freelancer.append(info_resumen)
+        else:
+            array_resumenes_freelancer.append(info_resumen)
 
 
     
-#     return jsonify(array_resumenes_freelancer), 200
+    return jsonify(array_resumenes_freelancer), 200
 
 
 
