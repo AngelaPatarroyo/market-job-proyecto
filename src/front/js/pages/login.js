@@ -80,7 +80,7 @@ export const Login = () => {
                   </button>
                 </div>
               </form>
-              <Link to={"/1"}>Ir a Perfil Frelancer</Link>
+              
             </div>
           </div>
         </div>

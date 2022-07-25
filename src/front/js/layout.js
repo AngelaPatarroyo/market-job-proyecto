@@ -10,6 +10,7 @@ import { Signup } from "./pages/signup";
 import { Freelancers } from "./pages/freelancers";
 import { Completaperfil } from "./pages/completaperfil";
 import { Buscafreelancer } from "./pages/buscafreelancer";
+import { Perfilbusqueda } from "./pages/perfilbusqueda";
 
 import injectContext from "./store/appContext";
 
@@ -45,6 +46,7 @@ const Layout = () => {
               path="/:userid/completaperfil"
             />
             <Route element={<Buscafreelancer />} path="/buscafreelancer" />
+            <Route element={<Perfilbusqueda />} path="/perfilbusqueda" />
             <Route element={<Single />} path="/single/:theid" />
 
             <Route element={<h1>Not found!</h1>} />
