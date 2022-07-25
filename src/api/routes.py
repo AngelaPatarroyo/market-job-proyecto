@@ -225,6 +225,7 @@ def ver_perfiles():
         experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
 
         info_resumen = {
+            "id": u.id,
             "nombre": u.nombre,
             "tipo_freelancer": tipo_freelancer.tipo,
             "experiencia": experiencia.nombre,
