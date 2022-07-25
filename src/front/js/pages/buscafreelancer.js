@@ -100,8 +100,36 @@ export const Buscafreelancer = () => {
         <div className="container">
           <h2 className="d-flex justify-content-center mb-5">Resultados</h2>
           <div className="container">
+            {store.perfilesFreelancer.map((item, index) => (
+              <div
+                className="container d-flex border"
+                id="carta perfil"
+                style={{ height: "220px", width: "350px" }}
+              >
+                <img
+                  className="mt-4 ms-3"
+                  style={{ height: "100px", width: "100px" }}
+                  src={Foto}
+                />
+                <div className="mt-4">
+                  <h4 className="ms-4 text-left">{item.nombre}</h4>
+                  <h6 className="ms-4">{item.tipo_freelancer}</h6>
+                  <h6 className="ms-4">{item.experiencia}</h6>
+                  <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
+
+                  <button
+                    type="button"
+                    class="btn btn-dark d-flex justify-content-center mt-4 mb-5"
+                  >
+                    Ver Perfil
+                  </button>
+                </div>
+              </div>
+            ))}
+
             <div
               className="container d-flex border"
+              id="carta perfil"
               style={{ height: "220px", width: "350px" }}
             >
               <img
