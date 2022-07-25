@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 export const Signup = () => {
   const { store, actions } = useContext(Context);
   const [msjError, setMsjError] = useState("");
+  const [nombre, setNombre] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
@@ -27,6 +28,7 @@ export const Signup = () => {
     } else {
       const body = {
         rol: rol,
+        nombre: nombre,
         correo: email,
         contrasena: password,
         telefono: phone,
@@ -83,6 +85,16 @@ export const Signup = () => {
                     </div>
                   );
                 })}
+              </div>
+              <div className="mt-3">
+                <input
+                  className="w-75"
+                  type={"text"}
+                  placeholder="Nombre"
+                  required
+                  value={nombre}
+                  onChange={(e) => setNombre(e.target.value)}
+                />
               </div>
               <div className="mt-3">
                 <input

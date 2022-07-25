@@ -20,6 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       idiomas: [],
       idiomasFreelancer: [],
       experiencias: [],
+      perfilesFreelancer: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -127,10 +128,9 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const data = await resp.json();
           setStore({ idiomasFreelancer: data });
-          console.log(data);
           return data;
         } catch (error) {
-          console.log("Error registro", error);
+          console.log("Error al obtener idiomas", error);
         }
       },
       getIdiomas: async () => {
@@ -199,14 +199,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       completarPerfil: async (body) => {
         console.log(body);
         try {
-          const resp = await fetch(process.env.BACKEND_URL + "/api/completar_perfil", {
-            method: "POST",
-            body: JSON.stringify(body),
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: "Bearer " + localStorage.getItem("accessToken"),
-            },
-          });
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/completar_perfil",
+            {
+              method: "POST",
+              body: JSON.stringify(body),
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
           const data = await resp.json();
 
           console.log(data);
@@ -215,6 +218,44 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error al completar perfil", error);
         }
       },
+
+      buscaFreelancer: async (id_tipo, id_experiencia) => {
+        let params = [];
+        let params_str = "";
+
+        if (id_tipo) {
+          params.push("id_tipo=" + id_tipo);
+        }
+        if (id_experiencia) {
+          params.push("id_experiencia=" + id_experiencia);
+        }
+
+        params_str = params.join("&");
+
+        if (params_str) {
+          params_str = "?" + params_str;
+        }
+
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/ver_perfiles" + params_str,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+          setStore({ perfilesFreelancer: data });
+          // console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error al obtener perfiles", error);
+        }
+      },
+
       changeColor: (index, color) => {
         //get the store
         const store = getStore();

@@ -9,10 +9,11 @@ import { Login } from "./pages/login";
 import { Signup } from "./pages/signup";
 import { Freelancers } from "./pages/freelancers";
 import { Completaperfil } from "./pages/completaperfil";
+import { Buscafreelancer } from "./pages/buscafreelancer";
+import { Perfilbusqueda } from "./pages/perfilbusqueda";
 
 import injectContext from "./store/appContext";
 
-import { Main } from "./component/main";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 
@@ -44,6 +45,8 @@ const Layout = () => {
               element={<Completaperfil />}
               path="/:userid/completaperfil"
             />
+            <Route element={<Buscafreelancer />} path="/buscafreelancer" />
+            <Route element={<Perfilbusqueda />} path="/perfilbusqueda" />
             <Route element={<Single />} path="/single/:theid" />
 
             <Route element={<h1>Not found!</h1>} />
