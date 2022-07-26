@@ -1,18 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Profile from "../../img/Profile.png";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
 
 export const Freelancers = () => {
   const { store, actions } = useContext(Context);
-  actions
-    .getIdiomasFreelancer()
-    .then((resp) => {
-      console.log(resp);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+  useEffect(() => {
+    actions.getPerfilCompleto(localStorage.getItem("id"), true);
+  }, [localStorage.getItem("id")]);
   return (
     <div className="container fluid">
       <div id="freelancerscon" className="justify-content-center d-flex">
@@ -23,11 +18,9 @@ export const Freelancers = () => {
           className="w-50 text-left"
           style={{ height: "350px", width: "350px" }}
         >
-          <h1>Iván González</h1>
+          <h1>{store?.user?.nombre}</h1>
           <h4>Diseñador Gráfico</h4>
-          <h5>
-            Calificación <i class="fas fa-star-half-alt" /> 4.5
-          </h5>
+          
           <h5>3 - 5 años de experiencia</h5>
           <h5>Idiomas: Español, Inglés, Francés, Latín, Portugués</h5>
           <h5>Tarifa: $35</h5>
@@ -63,11 +56,7 @@ export const Freelancers = () => {
           occaecat cupidatat non proident, sunt in culpa qui officia deserunt
           mollit anim id est laborum.
         </p>
-        <div className="d-flex justify-content-center">
-          <button type="button" className="btn btn-dark btn-lg col-4">
-            Contratar
-          </button>
-        </div>
+        
       </div>
     </div>
   );

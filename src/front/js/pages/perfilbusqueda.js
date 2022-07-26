@@ -1,18 +1,27 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Profile from "../../img/Profile.png";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
+import { Link, useParams } from "react-router-dom";
 
 export const Perfilbusqueda = () => {
   const { store, actions } = useContext(Context);
-  actions
+  const params = useParams();
+  /* actions
     .getIdiomasFreelancer()
     .then((resp) => {
       console.log(resp);
     })
     .catch((error) => {
       console.log(error);
-    });
+    }); */
+
+  useEffect(() => {
+    if (params?.userid) {
+      actions.getPerfilCompleto(Number(params?.userid));
+    }
+  }, [params?.userid]);
+  console.log(store?.perfilCompleto?.idiomas);
   return (
     <div className="container fluid">
       <div id="freelancerscon" className="justify-content-center d-flex">
@@ -25,20 +34,40 @@ export const Perfilbusqueda = () => {
           className="w-50 text-center"
           style={{ height: "350px", width: "350px" }}
         >
-          <h1>Iván González</h1>
-          <h4>Diseñador Gráfico</h4>
+          <h1>{store.perfilCompleto.nombre}</h1>
+          <h4>{store.perfilCompleto.tipo_freelancer}</h4>
 
-          <h5>Experiencia: 3 - 5 años de experiencia</h5>
-          <h5>Idiomas: Español, Inglés, Francés, Latín, Portugués</h5>
-          <h5>Teléfono: +57 312456798</h5>
-          <h5>Tarifa: $35</h5>
+          <h5>{store.perfilCompleto.experiencia}</h5>
+
+          <h5>Idiomas:</h5>
+          <div className="col-3 mx-auto">
+            <ul>
+              {store.perfilCompleto?.idiomas?.map((item, index) => (
+                <li key={index}>{item.nombre}</li>
+              ))}
+            </ul>
+          </div>
+
+          <h5>Teléfono: {store.perfilCompleto.telefono}</h5>
+          <h5>Tarifa por Hora: {store.perfilCompleto.tarifa}</h5>
           <div className="container d-flex justify-content-center">
             <div className="container gap-3 w-50 row mt-5">
               <button type="button" className="btn btn btn-dark ">
-                Portafolio
+                <a
+                  className="text-decoration-none text-white"
+                  href={store.perfilCompleto.portafolio}
+                >
+                  Portafolio
+                </a>
               </button>
+
               <button type="button" className="btn btn btn-dark">
-                LinkedIn
+                <a
+                  className="text-decoration-none text-white"
+                  href={store.perfilCompleto.linkedin}
+                >
+                  LinkedIn
+                </a>
               </button>
             </div>
           </div>
@@ -48,23 +77,8 @@ export const Perfilbusqueda = () => {
         className="container mt-5 col-4"
         style={{ width: "1000px", height: "1000px" }}
       >
-        <h3>Descripción</h3>
-        <p className="mt-5 mb-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
-        </p>
+        <h3>Perfil</h3>
+        <p className="mt-5 mb-5">{store.perfilCompleto.descripcion}</p>
         <div className="d-flex justify-content-center">
           <button type="button" className="btn btn-dark btn-lg col-4">
             Contratar
