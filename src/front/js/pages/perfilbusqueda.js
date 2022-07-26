@@ -49,6 +49,7 @@ export const Perfilbusqueda = () => {
           </div>
 
           <h5>Teléfono: {store.perfilCompleto.telefono}</h5>
+          <a href={"https://web.whatsapp.com/send?phone=" + store.perfilCompleto.telefono} target="_blank">Contactar por whatsapp</a>
           <h5>Tarifa por Hora: {store.perfilCompleto.tarifa}</h5>
           <div className="container d-flex justify-content-center">
             <div className="container gap-3 w-50 row mt-5">
