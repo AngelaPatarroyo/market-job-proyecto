@@ -118,10 +118,11 @@ export const Buscafreelancer = () => {
                   <h6 className="ms-4">{item.experiencia}</h6>
                   <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
 
-                 <Link to={`/perfilbusqueda/${item.id}`}>
+                 <Link target="_blank" to={`/perfilbusqueda/${item.id}`}>
                   <button
                     type="button"
                     class="btn btn-dark d-flex justify-content-center mt-4 mb-5"
+
                   >
                     Ver Perfil
                   </button>

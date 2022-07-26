@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
+import storage from "../firebaseConfig";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 import "../../styles/home.css";
 
@@ -13,6 +15,21 @@ export const Completaperfil = () => {
   const [linkedin, setLinkedin] = useState(null);
   const [portafolio, setPortafolio] = useState(null);
   const [tarifa, setTarifa] = useState(null);
+  const [file, setFile] = useState(null);
+  const [percent, setPercent] = useState(0);
+
+  function handleChange(e) {
+    setFile(e.target.files[0]);
+  }
+
+  const handleUpload = () => {
+    const storageRef = ref(storage, `/market_match/${file.name}`);
+    const uploadTask = uploadBytesResumable(storageRef, file);
+    uploadTask.on("state_changed", (snapshot)=>{
+      const percent = Math.round(snapshot.bytesTransferred/snapshot.totalBytes * 100)
+      setPercent(percent)
+    })
+  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -85,7 +102,12 @@ export const Completaperfil = () => {
         </div>
         <div className="container d-flex justify-content-center mt-5 align-items-center ">
           <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt"></i>
-          <button style={{ height: "50px" }} className="btn btn-dark mt-5 ">
+          <input type="file" onChange={handleChange} accept="/image/*"></input>
+          <button
+            onClick={handleUpload}
+            style={{ height: "50px" }}
+            className="btn btn-dark mt-5 "
+          >
             Sube tu Foto
           </button>
         </div>
