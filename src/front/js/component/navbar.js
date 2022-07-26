@@ -1,8 +1,11 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { Context } from "../store/appContext";
 import logo from "../../img/logo.png";
+import { Link, useNavigate } from "react-router-dom";
 
 export const Navbar = () => {
+  const { store, actions } = useContext(Context);
+  const navigate = useNavigate();
   return (
     <nav className="navbar navbar-expand-lg bg-black ">
       <div className="container-fluid ">
@@ -88,13 +91,33 @@ export const Navbar = () => {
               </div>
             </form>
           </div>
-          <div>
-            <Link to="login">
-              <button type="button" className="btn btn-dark">
-                Login
+          {store?.user?.nombre ? (
+            <div>
+              <Link to="/perfil">
+                <button type="button" className="btn btn-dark">
+                  Mi Perfil
+                </button>
+              </Link>
+              <button
+                type="button"
+                className="btn btn-dark"
+                onClick={() => {
+                  actions.logOut();
+                  navigate("/")
+                }}
+              >
+                Logout
               </button>
-            </Link>
-          </div>
+            </div>
+          ) : (
+            <div>
+              <Link to="/login">
+                <button type="button" className="btn btn-dark">
+                  Login
+                </button>
+              </Link>
+            </div>
+          )}
         </div>
       </div>
     </nav>

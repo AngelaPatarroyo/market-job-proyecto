@@ -15,12 +15,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           initial: "white",
         },
       ],
+      user: [],
       roles: [],
       tipoFreelancer: [],
       idiomas: [],
       idiomasFreelancer: [],
       experiencias: [],
       perfilesFreelancer: [],
+      perfilCompleto: {},
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -50,6 +52,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           });
           const data = await resp.json();
           setStore({ accessToken: data.accessToken });
+          setStore({ user: { nombre: data.nombre } });
           localStorage.setItem("accessToken", data.accessToken);
           localStorage.setItem("id", data.id);
           console.log(data);
@@ -76,7 +79,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
-
       getTipodeFreelancer: async () => {
         try {
           const resp = await fetch(
@@ -96,6 +98,39 @@ const getState = ({ getStore, getActions, setStore }) => {
           return data;
         } catch (error) {
           console.log("Error registro", error);
+        }
+      },
+      logOut: ()=>{
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("id");
+        setStore( {user: []} );
+      },
+
+      getPerfilCompleto: async (id, miperfil = false) => {
+        let idFreelancer = id;
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL +
+              "/api/ver_perfil_completo/" +
+              idFreelancer,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+          if (miperfil) {
+            setStore({ user: data });
+          } else {
+            setStore({ perfilCompleto: data });
+          }
+
+          return data;
+        } catch (error) {
+          console.log("Error Cargar Perfil Completo", error);
         }
       },
       get_roles: async () => {
