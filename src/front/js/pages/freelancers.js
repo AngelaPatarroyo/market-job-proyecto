@@ -19,17 +19,36 @@ export const Freelancers = () => {
           style={{ height: "350px", width: "350px" }}
         >
           <h1>{store?.user?.nombre}</h1>
-          <h4>Diseñador Gráfico</h4>
-          
-          <h5>3 - 5 años de experiencia</h5>
-          <h5>Idiomas: Español, Inglés, Francés, Latín, Portugués</h5>
-          <h5>Tarifa: $35</h5>
+          <h4>{store?.user?.tipo_freelancer}</h4>
+
+          <h5>{store?.user?.experiencia}</h5>
+          <h5>Idiomas:</h5>
+          <div className="col-3 mx-auto">
+            <ul>
+              {store.user?.idiomas?.map((item, index) => (
+                <li key={index}>{item.nombre}</li>
+              ))}
+            </ul>
+          </div>
+          <h5>Tarifa por Hora: {store?.user?.tarifa}</h5>
           <div className="container d-grid gap-2 d-md w-50 row align-items-start p-0 mt-5">
             <button type="button" className="btn btn btn-dark">
-              GitHub
+              <a
+                target="_blank"
+                className="text-decoration-none text-white"
+                href={store?.user?.portafolio}
+              >
+                Portafolio
+              </a>
             </button>
             <button type="button" className="btn btn btn-dark">
-              LinkedIn
+              <a
+                target="_blank"
+                className="text-decoration-none text-white"
+                href={store?.user?.linkedin}
+              >
+                LinkedIn
+              </a>
             </button>
           </div>
         </div>
@@ -39,24 +58,10 @@ export const Freelancers = () => {
         className="container mt-5 col-4"
         style={{ width: "1000px", height: "1000px" }}
       >
-        <h3>Descripción</h3>
+        <h3>Mi Perfil</h3>
         <p className="mt-5 mb-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum
-          dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-          quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-          commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-          velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-          occaecat cupidatat non proident, sunt in culpa qui officia deserunt
-          mollit anim id est laborum.
+        {store?.user?.descripcion}
         </p>
-        
       </div>
     </div>
   );

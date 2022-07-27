@@ -60,7 +60,7 @@ export const Perfilbusqueda = () => {
             <i className="fab fa-whatsapp"></i> Contactar por whatsapp
           </a>
           <div>
-            <h5>Tarifa por Hora: {store.perfilCompleto.tarifa}</h5>
+            <h5>Tarifa por Hora: ${store.perfilCompleto.tarifa}</h5>
             <div className="container d-flex justify-content-center">
               <div className="container gap-3 w-50 row mt-5">
                 <button type="button" className="btn btn btn-dark ">
@@ -74,6 +74,7 @@ export const Perfilbusqueda = () => {
 
                 <button type="button" className="btn btn btn-dark mb-5">
                   <a
+                   target="_blank"
                     className="text-decoration-none text-white"
                     href={store.perfilCompleto.linkedin}
                   >
@@ -95,7 +96,7 @@ export const Perfilbusqueda = () => {
         <p className="mt-5 mb-5">{store.perfilCompleto.descripcion}</p>
       </div>
       <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-dark btn-lg col-4">
+        <button type="button" className="btn btn-dark btn-lg col-4" onClick={actions?.addFavoritos(store?.perfilCompleto?.usuario_id)}>
           Agregar a Favoritos
         </button>
       </div>

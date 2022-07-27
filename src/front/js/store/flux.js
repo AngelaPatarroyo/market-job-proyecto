@@ -23,6 +23,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       experiencias: [],
       perfilesFreelancer: [],
       perfilCompleto: {},
+      favoritos: [],
     },
     actions: {
       // Use getActions to call a function within a fuction
@@ -79,6 +80,53 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
+
+      addFavoritos: async (id) => {
+        let idFavoritos = id;
+        console.log(idFavoritos)
+        console.log("aqui estan favoritos")
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/add_favorito/" + idFavoritos,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error al Cargar Favoritos", error);
+        }
+      },
+      deleteFavorito: async (id) => {
+        let idFavorito = id;
+        console.log(idFavorito)
+        console.log("aqui estan favoritos")
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/delete_favorito/" + idFavorito,
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+
+          console.log(data);
+          return data;
+        } catch (error) {
+          console.log("Error al Borrar Favoritos", error);
+        }
+      },
       getTipodeFreelancer: async () => {
         try {
           const resp = await fetch(
@@ -100,10 +148,32 @@ const getState = ({ getStore, getActions, setStore }) => {
           console.log("Error registro", error);
         }
       },
-      logOut: ()=>{
+      verFavoritos: async () => {
+        console.log("prueba")
+        try {
+          const resp = await fetch(
+            process.env.BACKEND_URL + "/api/ver_favoritos",
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("accessToken"),
+              },
+            }
+          );
+          const data = await resp.json();
+
+          console.log(data);
+          setStore({ favoritos: data });
+          return data;
+        } catch (error) {
+          console.log("Error registro", error);
+        }
+      },
+      logOut: () => {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("id");
-        setStore( {user: []} );
+        setStore({ user: [] });
       },
 
       getPerfilCompleto: async (id, miperfil = false) => {
