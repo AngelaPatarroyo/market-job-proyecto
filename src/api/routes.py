@@ -166,12 +166,12 @@ def completar_registro():
     }
     return jsonify(respuesta), 200
 
-@api.route('/add_favorito', methods=['POST'])
+@api.route('/add_favorito/<int:id>/', methods=['POST'])
 @jwt_required()
-def add_favorito():
+def add_favorito(id):
     email_user = get_jwt_identity()
     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
-    id_freelancer = request.json.get("id_freelancer", None)
+    id_freelancer = id
 
     favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
     db.session.add(favorito_nuevo)
@@ -180,6 +180,22 @@ def add_favorito():
         "msg" : "favorito agregado"
     }
     return jsonify(respuesta), 200
+
+
+@api.route('/delete_favorito/<int:id>/', methods=['DELETE'])
+@jwt_required()
+def delete_favorito(id):
+    favorito = Favoritos.query.filter_by(id=id).first()
+
+
+    # favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
+    db.session.delete(favorito)
+    db.session.commit()
+    respuesta = {
+        "msg" : "favorito eliminado"
+    }
+    return jsonify(respuesta), 200
+
 
 @api.route('/ver_perfil_completo/<int:id>/', methods=['GET'])
 # @jwt_required()
@@ -210,6 +226,31 @@ def cargar_perfil(id):
 
     }
     return jsonify(info_completa),200
+
+@api.route('/ver_favoritos/', methods=['GET'])
+@jwt_required()
+def ver_favoritos():
+    email_user = get_jwt_identity()
+    id_empresa = Usuario.query.filter_by(correo=email_user).first().id
+    array_favoritos_empresa = Favoritos.query.filter_by(id_empresa = id_empresa)
+    array_resumenes_favoritos = []
+    for u in array_favoritos_empresa:
+        perfil_freelancer = PerfilFreelancer.query.filter_by(usuario_id = u.id_freelancer).first()
+        usuario_freelancer = Usuario.query.filter_by(id = u.id_freelancer).first()
+        tipo_freelancer = TipoFreelancer.query.filter_by(id=perfil_freelancer.tipo_freelancer).first()
+        experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
+
+        info_resumen = {
+            "id": u.id_freelancer,
+            "nombre": usuario_freelancer.nombre,
+            "tipo_freelancer": tipo_freelancer.tipo,
+            "experiencia": experiencia.nombre,
+            "tarifa": int(perfil_freelancer.tarifa),
+            "imagen": perfil_freelancer.imagen
+        }
+        array_resumenes_favoritos.append(info_resumen)
+    
+    return jsonify(array_resumenes_favoritos), 200
 
 @api.route('/ver_perfiles/', methods=['GET'])
 # @jwt_required()
