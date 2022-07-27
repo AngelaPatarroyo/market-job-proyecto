@@ -11,6 +11,7 @@ import { Freelancers } from "./pages/freelancers";
 import { Completaperfil } from "./pages/completaperfil";
 import { Buscafreelancer } from "./pages/buscafreelancer";
 import { Perfilbusqueda } from "./pages/perfilbusqueda";
+import { Empresafavoritos } from "./pages/empresafavoritos";
 
 import injectContext from "./store/appContext";
 
@@ -47,6 +48,7 @@ const Layout = () => {
             />
             <Route element={<Buscafreelancer />} path="/buscafreelancer" />
             <Route element={<Perfilbusqueda />} path="/perfilbusqueda/:userid" />
+            <Route element={<Empresafavoritos />} path="/empresafavoritos/" />
             <Route element={<Single />} path="/single/:theid" />
 
             <Route element={<h1>Not found!</h1>} />

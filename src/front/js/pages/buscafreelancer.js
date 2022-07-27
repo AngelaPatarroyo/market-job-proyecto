@@ -87,10 +87,10 @@ export const Buscafreelancer = () => {
           </div>
         </div>
       </div>
-      <div justify-content-center>
+      <div className="d-flex justify-content-center mb-5 mt-3">
         <button
           type="submit"
-          className="justify-content-center mt-4"
+          className="btn btn-dark text-white"
           id="submit"
           onClick={onSubmit}
         >
@@ -103,22 +103,22 @@ export const Buscafreelancer = () => {
           <div className="container">
             {store.perfilesFreelancer.map((item, index) => (
               <div
-                className="container d-flex border"
-                id="carta perfil"
-                style={{ height: "220px", width: "350px" }}
+                className="container d-flex border mb-5"
+                id="cartaperfil"
+                style={{ height: "250px", width: "350px" }}
               >
                 <img
                   className="mt-4 ms-3"
                   style={{ height: "100px", width: "100px" }}
                   src={Foto}
                 />
-                <div className="mt-4">
+                <div className="mt-4 mb-5">
                   <h4 className="ms-4 text-left">{item.nombre}</h4>
                   <h6 className="ms-4">{item.tipo_freelancer}</h6>
                   <h6 className="ms-4">{item.experiencia}</h6>
                   <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
 
-                 <Link target="_blank" to={`/perfilbusqueda/${item.id}`}>
+                 <Link className="text-decoration-none" target="_blank" to={`/perfilbusqueda/${item.id}`}>
                   <button
                     type="button"
                     class="btn btn-dark d-flex justify-content-center mt-4 mb-5"
