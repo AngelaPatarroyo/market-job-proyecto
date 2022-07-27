@@ -22,6 +22,7 @@ export const Completaperfil = () => {
     setFile(e.target.files[0]);
   }
 
+
   const handleUpload = () => {
     const storageRef = ref(storage, `/market_match/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
@@ -30,6 +31,9 @@ export const Completaperfil = () => {
       setPercent(percent)
     })
   };
+(err) => console.log(err)
+
+
 
   const onSubmit = (e) => {
     e.preventDefault();
