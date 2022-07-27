@@ -211,6 +211,7 @@ def cargar_perfil(id):
         experiencia = Experiencia.query.filter_by(id=info_perfil.experiencia_id).first().nombre
         
     info_completa = {
+        "usuario_id": info_usuario.id,
         "nombre": info_usuario.nombre,
         "telefono": info_usuario.telefono,
         "tipo_freelancer": tipo_freelancer, 
@@ -241,6 +242,7 @@ def ver_favoritos():
         experiencia = Experiencia.query.filter_by(id=perfil_freelancer.experiencia_id).first()
 
         info_resumen = {
+            "id_favorito": u.id,
             "id": u.id_freelancer,
             "nombre": usuario_freelancer.nombre,
             "tipo_freelancer": tipo_freelancer.tipo,
