@@ -23,7 +23,7 @@ export const Perfilbusqueda = () => {
   }, [params?.userid]);
   console.log(store?.perfilCompleto?.idiomas);
   return (
-    <div className="container fluid">
+    <div className="container position-static">
       <div id="freelancerscon" className="justify-content-center d-flex">
         <div className="w-50 ml-5 d-flex justify-content-center">
           <img src={Profile} style={{ height: "350px", width: "350px" }} />
@@ -49,42 +49,55 @@ export const Perfilbusqueda = () => {
           </div>
 
           <h5>Teléfono: {store.perfilCompleto.telefono}</h5>
-          <a href={"https://web.whatsapp.com/send?phone=" + store.perfilCompleto.telefono} target="_blank">Contactar por whatsapp</a>
-          <h5>Tarifa por Hora: {store.perfilCompleto.tarifa}</h5>
-          <div className="container d-flex justify-content-center">
-            <div className="container gap-3 w-50 row mt-5">
-              <button type="button" className="btn btn btn-dark ">
-                <a
-                  className="text-decoration-none text-white"
-                  href={store.perfilCompleto.portafolio}
-                >
-                  Portafolio
-                </a>
-              </button>
+          <a
+            className="text-decoration-none text-black mb-4"
+            href={
+              "https://web.whatsapp.com/send?phone=" +
+              store.perfilCompleto.telefono
+            }
+            target="_blank"
+          >
+            <i className="fab fa-whatsapp"></i> Contactar por whatsapp
+          </a>
+          <div>
+            <h5>Tarifa por Hora: {store.perfilCompleto.tarifa}</h5>
+            <div className="container d-flex justify-content-center">
+              <div className="container gap-3 w-50 row mt-5">
+                <button type="button" className="btn btn btn-dark ">
+                  <a
+                    className="text-decoration-none text-white"
+                    href={store.perfilCompleto.portafolio}
+                  >
+                    Portafolio
+                  </a>
+                </button>
 
-              <button type="button" className="btn btn btn-dark">
-                <a
-                  className="text-decoration-none text-white"
-                  href={store.perfilCompleto.linkedin}
-                >
-                  LinkedIn
-                </a>
-              </button>
+                <button type="button" className="btn btn btn-dark mb-5">
+                  <a
+                    className="text-decoration-none text-white"
+                    href={store.perfilCompleto.linkedin}
+                  >
+                    LinkedIn
+                  </a>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <div
-        className="container mt-5 col-4"
-        style={{ width: "1000px", height: "1000px" }}
+        id="perfilcontainer"
+        className="container col-4 mt-5 pt-5"
+        style={{ width: "1000px", height: "500px" }}
       >
         <h3>Perfil</h3>
         <p className="mt-5 mb-5">{store.perfilCompleto.descripcion}</p>
-        <div className="d-flex justify-content-center">
-          <button type="button" className="btn btn-dark btn-lg col-4">
-            Contratar
-          </button>
-        </div>
+      </div>
+      <div className="d-flex justify-content-center">
+        <button type="button" className="btn btn-dark btn-lg col-4">
+          Agregar a Favoritos
+        </button>
       </div>
     </div>
   );

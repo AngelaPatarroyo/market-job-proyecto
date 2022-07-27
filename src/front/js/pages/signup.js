@@ -54,21 +54,21 @@ export const Signup = () => {
 
   return (
     <div className="d-flex justify-content-center" id="contenedor">
-      <div className="text-center mt-4 bg-white mb-5 p-5" id="con2">
+      <div className="text-center mt-4 bg-white mb-3 p-4" id="con2">
         <h1>Regístrate</h1>
         <div className="position-relative">
           <div className="d-flex w-100 m-5">
             <form
-              style={{ width: "500px", height: "600px" }}
+              style={{ width: "500px", height: "700px" }}
               onSubmit={onSubmit}
             >
               <div>
-                <img src={signup} style={{ width: "210px", height: "210px" }} />
+                <img src={signup} style={{ width: "180px", height: "180px" }} />
               </div>
-              <div>
+              <div className="d-flex justify-content-center mt-3">
                 {store?.roles.map((rol) => {
                   return (
-                    <div className="form-check mt-2" key={rol.id}>
+                    <div className=" form-check mt-2 col-3 p-3" key={rol.id}>
                       <input
                         className="form-check-input"
                         type="radio"
