@@ -168,19 +168,36 @@ def completar_registro():
 
 @api.route('/add_favorito/<int:id>/', methods=['POST'])
 @jwt_required()
+# def add_favorito(id):
+#     email_user = get_jwt_identity()
+#     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
+#     id_freelancer = id
+
+#     favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
+#     db.session.add(favorito_nuevo)
+#     db.session.commit()
+#     respuesta = {
+#         "msg" : "favorito agregado"
+#     }
+#     return jsonify(respuesta), 200
 def add_favorito(id):
     email_user = get_jwt_identity()
     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
-    id_freelancer = id
-
-    favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
-    db.session.add(favorito_nuevo)
-    db.session.commit()
-    respuesta = {
-        "msg" : "favorito agregado"
-    }
+    id_freelancer = int(id)
+    favorito_query = Favoritos.query.filter_by(id_freelancer = id_freelancer, id_empresa = id_empresa).first()
+    print(favorito_query)
+    if favorito_query is None:
+        favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
+        db.session.add(favorito_nuevo)
+        db.session.commit()
+        respuesta = {
+            "msg" : "favorito agregado"
+        }
+    else:
+        respuesta = {
+            "msg" : "favorito ya existe"
+        }
     return jsonify(respuesta), 200
-
 
 @api.route('/delete_favorito/<int:id>/', methods=['DELETE'])
 @jwt_required()
