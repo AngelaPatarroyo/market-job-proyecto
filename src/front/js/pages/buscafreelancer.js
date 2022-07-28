@@ -111,9 +111,9 @@ export const Buscafreelancer = () => {
                     style={{ height: "250px", width: "350px" }}
                   >
                     <img
-                      className="mt-4 ms-3"
+                      className="mt-4 ms-3 rounded-circle"
                       style={{ height: "100px", width: "100px" }}
-                      src={Foto}
+                      src={item.imagen}
                     />
                     <div className="mt-4 mb-5">
                       <h4 className="ms-4 text-left">{item.nombre}</h4>
