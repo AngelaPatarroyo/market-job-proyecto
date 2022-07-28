@@ -101,13 +101,19 @@ def add_idioma():
     email_user = get_jwt_identity()
     id_freelancer = Usuario.query.filter_by(correo=email_user).first().id
     idioma_id = request.json.get("idioma_id", None)
-
-    idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
-    db.session.add(idioma_nuevo)
-    db.session.commit()
-    respuesta = {
-        "msg" : "idioma registrado"
-    }
+    idioma_query = FreelancerIdiomas.query.filter_by(idioma_id=int(idioma_id), id_freelancer=int(id_freelancer)).first()
+    if idioma_query is None:
+        idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
+        db.session.add(idioma_nuevo)
+        db.session.commit()
+        respuesta = {
+            "msg" : "idioma registrado"
+        }
+    else:
+        respuesta = {
+            "msg" : "idioma ya registrado"
+        }
+    
     return jsonify(respuesta), 200
 
 @api.route('/get_experiencias', methods=['GET'])
@@ -171,16 +177,20 @@ def completar_registro():
 def add_favorito(id):
     email_user = get_jwt_identity()
     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
-    id_freelancer = id
-
-    favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
-    db.session.add(favorito_nuevo)
-    db.session.commit()
-    respuesta = {
-        "msg" : "favorito agregado"
-    }
+    id_freelancer = int(id)
+    favorito_query = Favoritos.query.filter_by(id_freelancer = id_freelancer, id_empresa = id_empresa).first()
+    if favorito_query is None:
+        favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
+        db.session.add(favorito_nuevo)
+        db.session.commit()
+        respuesta = {
+            "msg" : "favorito agregado"
+        }
+    else:
+        respuesta = {
+            "msg" : "favorito ya existe"
+        }
     return jsonify(respuesta), 200
-
 
 @api.route('/delete_favorito/<int:id>/', methods=['DELETE'])
 @jwt_required()
@@ -357,19 +367,19 @@ def cargar_datos():
 
     """ usuarios= Usuario.query.all()
     if not usuarios:
-        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_2 = Usuario (id=2, correo= "maria@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_3 = Usuario (id=3, correo= "andres123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Andres Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_4 = Usuario (id=4, correo= "pablorestrepo@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Pablo Restrepo", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_5 = Usuario (id=5, correo= "isacotes@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Isabel Cotes", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_6 = Usuario (id=6, correo= "paola@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Paola Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_7 = Usuario (id=7, correo= "mauricio@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Mauricio Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_8 = Usuario (id=8, correo= "joseperez@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Jose Perez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_9 = Usuario (id=9, correo= "paolavas@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Paola vasquez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_10 = Usuario (id=10, correo= "marcela@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Marcela Diaz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_11 = Usuario (id=11, correo= "antoniopp@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Antonio Lara Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_12 = Usuario (id=12, correo= "majo123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Jose Gonzalez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
-        new_usuario_13 = Usuario (id=13, correo= "ivan123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Ivan Saldarriaga", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_1 = Usuario (correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_2 = Usuario (correo= "maria@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_3 = Usuario (correo= "andres123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Andres Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_4 = Usuario (correo= "pablorestrepo@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Pablo Restrepo", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_5 = Usuario (correo= "isacotes@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Isabel Cotes", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_6 = Usuario (correo= "paola@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Paola Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_7 = Usuario (correo= "mauricio@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Mauricio Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_8 = Usuario (correo= "joseperez@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Jose Perez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_9 = Usuario (correo= "paolavas@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Paola vasquez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_10 = Usuario (correo= "marcela@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Marcela Diaz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_11 = Usuario (correo= "antoniopp@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Antonio Lara Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_12 = Usuario (correo= "majo123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Jose Gonzalez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_13 = Usuario (correo= "ivan123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Ivan Saldarriaga", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
 
 
         db.session.add(new_usuario_1)
@@ -389,19 +399,19 @@ def cargar_datos():
    
     perfiles= PerfilFreelancer.query.all()
     if not perfiles:
-        new_perfil_freelancer_1 = PerfilFreelancer (id=1, tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 50, experiencia_id= 3)
-        new_perfil_freelancer_2 = PerfilFreelancer (id=2, tipo_freelancer= 1, usuario_id= 2, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 33, experiencia_id= 2)
-        new_perfil_freelancer_3 = PerfilFreelancer (id=3, tipo_freelancer= 2, usuario_id= 3, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 25, experiencia_id= 1)
-        new_perfil_freelancer_4 = PerfilFreelancer (id=4, tipo_freelancer= 3, usuario_id= 4, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 33, experiencia_id= 1)
-        new_perfil_freelancer_5 = PerfilFreelancer (id=5, tipo_freelancer= 4, usuario_id= 5, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 40, experiencia_id= 4)
-        new_perfil_freelancer_6 = PerfilFreelancer (id=6, tipo_freelancer= 1, usuario_id= 6, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
-        new_perfil_freelancer_7 = PerfilFreelancer (id=7, tipo_freelancer= 2, usuario_id= 7, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 40, experiencia_id= 2)
-        new_perfil_freelancer_8 = PerfilFreelancer (id=8, tipo_freelancer= 3, usuario_id= 8, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 45, experiencia_id= 2)
-        new_perfil_freelancer_9 = PerfilFreelancer (id=9, tipo_freelancer= 4, usuario_id= 9, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 20, experiencia_id= 1)
-        new_perfil_freelancer_10 = PerfilFreelancer (id=10, tipo_freelancer= 1, usuario_id= 10, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 70, experiencia_id= 4)
-        new_perfil_freelancer_11 = PerfilFreelancer (id=11, tipo_freelancer= 2, usuario_id= 11, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
-        new_perfil_freelancer_12 = PerfilFreelancer (id=12, tipo_freelancer= 3, usuario_id= 12, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
-        new_perfil_freelancer_13 = PerfilFreelancer (id=13, tipo_freelancer= 4, usuario_id= 13, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 30, experiencia_id= 2)
+        new_perfil_freelancer_1 = PerfilFreelancer (tipo_freelancer= 1, usuario_id= 1, descripcion= "Descripción de Prueba", imagen= " ", linkedin= "https://www.linkedin.com/in/karen-margarita-vergara-vicent-68193461/", portafolio= 'https://github.com/karenvicent', tarifa= 50, experiencia_id= 3)
+        new_perfil_freelancer_2 = PerfilFreelancer (tipo_freelancer= 1, usuario_id= 2, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 33, experiencia_id= 2)
+        new_perfil_freelancer_3 = PerfilFreelancer (tipo_freelancer= 2, usuario_id= 3, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 25, experiencia_id= 1)
+        new_perfil_freelancer_4 = PerfilFreelancer (tipo_freelancer= 3, usuario_id= 4, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 33, experiencia_id= 1)
+        new_perfil_freelancer_5 = PerfilFreelancer (tipo_freelancer= 4, usuario_id= 5, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 40, experiencia_id= 4)
+        new_perfil_freelancer_6 = PerfilFreelancer (tipo_freelancer= 1, usuario_id= 6, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
+        new_perfil_freelancer_7 = PerfilFreelancer (tipo_freelancer= 2, usuario_id= 7, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 40, experiencia_id= 2)
+        new_perfil_freelancer_8 = PerfilFreelancer (tipo_freelancer= 3, usuario_id= 8, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 45, experiencia_id= 2)
+        new_perfil_freelancer_9 = PerfilFreelancer (tipo_freelancer= 4, usuario_id= 9, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 20, experiencia_id= 1)
+        new_perfil_freelancer_10 = PerfilFreelancer (tipo_freelancer= 1, usuario_id= 10, descripcion= "Programador innovador y emprendedor de Internet que se empeña en hacer del mundo un lugar más unido y conectado. Dominio del desarrollo de software y del trabajo con diferentes estructuras de datos JavaScript, React, Python, etc.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 70, experiencia_id= 4)
+        new_perfil_freelancer_11 = PerfilFreelancer (tipo_freelancer= 2, usuario_id= 11, descripcion= "Diseñadora gráfica con experiencia, especializada en la creación de diseños visuales potentes utilizando ilustraciones digitales, imágenes y tipografía. Comprometida a ayudar a los clientes a dar forma a su identidad de marca mediante el uso de diseños gráficos convincentes. Acostumbrada a colaborar con otros profesionales creativos para alcanzar los objetivos del proyecto.", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
+        new_perfil_freelancer_12 = PerfilFreelancer (tipo_freelancer= 3, usuario_id= 12, descripcion= "Director de marketing experimentado y enérgico con más de siete años de experiencia en la gestión eficaz de proyectos de marketing desde la concepción hasta la finalización. Experto en el uso de plataformas de marketing digital para aumentar las ventas y la productividad general de la empresa. Experiencia en la preparación y supervisión de campañas de marketing online e impresas, lo que se refleja en un aumento de las relaciones con los socios de la empresa. Experto en monitorización y en informar de los objetivos de marketing, manteniendo las comunicaciones internas necesarias dentro de la empresa", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 50, experiencia_id= 3)
+        new_perfil_freelancer_13 = PerfilFreelancer (tipo_freelancer= 4, usuario_id= 13, descripcion= "Productor Audiovisual, 13 años de experiencia en la creación Vídeos. Una las mayores especialidades es la realización de vídeos corporativos, también manejo deferentes técnicas de producción de vídeos, cómo grabación en alta definición, edición de vídeo, creación de contenido, fotografía, animación 2d y 3d.he participado en diferentes proyectos de comunicación audiovisual para empresas, multinacionales y entidades del Estado entendiendo así el concepto de comunicación de diferentes sectores industriales, comerciales e institucionales", imagen= " ", linkedin= "https://www.linkedin.com/", portafolio= 'https://github.com/', tarifa= 30, experiencia_id= 2)
 
 
         db.session.add(new_perfil_freelancer_1)
@@ -420,29 +430,29 @@ def cargar_datos():
 
     freelancer_idiomas= FreelancerIdiomas.query.all()
     if not freelancer_idiomas:
-        new_freelancer_idioma_1 = FreelancerIdiomas(id=1, idioma_id=2, id_freelancer=1)
-        new_freelancer_idioma_2 = FreelancerIdiomas(id=2, idioma_id=1, id_freelancer=1)
-        new_freelancer_idioma_3 = FreelancerIdiomas(id=3, idioma_id=1, id_freelancer=2)
-        new_freelancer_idioma_4 = FreelancerIdiomas(id=4, idioma_id=2, id_freelancer=2)
-        new_freelancer_idioma_5 = FreelancerIdiomas(id=5, idioma_id=3, id_freelancer=2)
-        new_freelancer_idioma_6 = FreelancerIdiomas(id=6, idioma_id=1, id_freelancer=3)
-        new_freelancer_idioma_7 = FreelancerIdiomas(id=7, idioma_id=1, id_freelancer=4)
-        new_freelancer_idioma_8 = FreelancerIdiomas(id=8, idioma_id=5, id_freelancer=4)
-        new_freelancer_idioma_9 = FreelancerIdiomas(id=9, idioma_id=1, id_freelancer=5)
-        new_freelancer_idioma_10 = FreelancerIdiomas(id=10, idioma_id=1, id_freelancer=6)
-        new_freelancer_idioma_11 = FreelancerIdiomas(id=11, idioma_id=2, id_freelancer=6)
-        new_freelancer_idioma_12 = FreelancerIdiomas(id=12, idioma_id=3, id_freelancer=6)
-        new_freelancer_idioma_13 = FreelancerIdiomas(id=13, idioma_id=1, id_freelancer=7)
-        new_freelancer_idioma_14 = FreelancerIdiomas(id=14, idioma_id=1, id_freelancer=8)
-        new_freelancer_idioma_15 = FreelancerIdiomas(id=15, idioma_id=5, id_freelancer=9)
-        new_freelancer_idioma_16 = FreelancerIdiomas(id=16, idioma_id=1, id_freelancer=9)
-        new_freelancer_idioma_17 = FreelancerIdiomas(id=17, idioma_id=1, id_freelancer=10)
-        new_freelancer_idioma_18 = FreelancerIdiomas(id=18, idioma_id=2, id_freelancer=10)
-        new_freelancer_idioma_19 = FreelancerIdiomas(id=19, idioma_id=3, id_freelancer=10)
-        new_freelancer_idioma_20 = FreelancerIdiomas(id=20, idioma_id=1, id_freelancer=11)
-        new_freelancer_idioma_21 = FreelancerIdiomas(id=21, idioma_id=1, id_freelancer=12)
-        new_freelancer_idioma_22 = FreelancerIdiomas(id=22, idioma_id=5, id_freelancer=12)
-        new_freelancer_idioma_23 = FreelancerIdiomas(id=23, idioma_id=1, id_freelancer=13)
+        new_freelancer_idioma_1 = FreelancerIdiomas(idioma_id=2, id_freelancer=1)
+        new_freelancer_idioma_2 = FreelancerIdiomas(idioma_id=1, id_freelancer=1)
+        new_freelancer_idioma_3 = FreelancerIdiomas(idioma_id=1, id_freelancer=2)
+        new_freelancer_idioma_4 = FreelancerIdiomas(idioma_id=2, id_freelancer=2)
+        new_freelancer_idioma_5 = FreelancerIdiomas(idioma_id=3, id_freelancer=2)
+        new_freelancer_idioma_6 = FreelancerIdiomas(idioma_id=1, id_freelancer=3)
+        new_freelancer_idioma_7 = FreelancerIdiomas(idioma_id=1, id_freelancer=4)
+        new_freelancer_idioma_8 = FreelancerIdiomas(idioma_id=5, id_freelancer=4)
+        new_freelancer_idioma_9 = FreelancerIdiomas(idioma_id=1, id_freelancer=5)
+        new_freelancer_idioma_10 = FreelancerIdiomas(idioma_id=1, id_freelancer=6)
+        new_freelancer_idioma_11 = FreelancerIdiomas(idioma_id=2, id_freelancer=6)
+        new_freelancer_idioma_12 = FreelancerIdiomas(idioma_id=3, id_freelancer=6)
+        new_freelancer_idioma_13 = FreelancerIdiomas(idioma_id=1, id_freelancer=7)
+        new_freelancer_idioma_14 = FreelancerIdiomas(idioma_id=1, id_freelancer=8)
+        new_freelancer_idioma_15 = FreelancerIdiomas(idioma_id=5, id_freelancer=9)
+        new_freelancer_idioma_16 = FreelancerIdiomas(idioma_id=1, id_freelancer=9)
+        new_freelancer_idioma_17 = FreelancerIdiomas(idioma_id=1, id_freelancer=10)
+        new_freelancer_idioma_18 = FreelancerIdiomas(idioma_id=2, id_freelancer=10)
+        new_freelancer_idioma_19 = FreelancerIdiomas(idioma_id=3, id_freelancer=10)
+        new_freelancer_idioma_20 = FreelancerIdiomas(idioma_id=1, id_freelancer=11)
+        new_freelancer_idioma_21 = FreelancerIdiomas(idioma_id=1, id_freelancer=12)
+        new_freelancer_idioma_22 = FreelancerIdiomas(idioma_id=5, id_freelancer=12)
+        new_freelancer_idioma_23 = FreelancerIdiomas(idioma_id=1, id_freelancer=13)
 
 
 
