@@ -17,30 +17,40 @@ export const Completaperfil = () => {
   const [tarifa, setTarifa] = useState(null);
   const [file, setFile] = useState(null);
   const [percent, setPercent] = useState(0);
+  const [url, setUrl] = useState(0);
 
   function handleChange(e) {
     setFile(e.target.files[0]);
   }
 
-
   const handleUpload = () => {
     const storageRef = ref(storage, `/market_match/${file.name}`);
     const uploadTask = uploadBytesResumable(storageRef, file);
-    uploadTask.on("state_changed", (snapshot)=>{
-      const percent = Math.round(snapshot.bytesTransferred/snapshot.totalBytes * 100)
-      setPercent(percent)
-    })
+    uploadTask.on(
+      "state_changed",
+      (snapshot) => {
+        const percent = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setPercent(percent);
+      },
+      (err) => console.log(err),
+      () => {
+        setFile("");
+        getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+          console.log(url);
+          setUrl(url);
+        });
+      }
+    );
   };
-(err) => console.log(err)
-
-
 
   const onSubmit = (e) => {
     e.preventDefault();
     const body = {
       tipo_freelancer: idFreelancerSelected,
       descripcion: descripcion,
-      imagen: imagen,
+      imagen: url,
       linkedin: linkedin,
       portafolio: portafolio,
       tarifa: tarifa,
@@ -104,10 +114,12 @@ export const Completaperfil = () => {
             ))}
           </div>
         </div>
-        <div className="container d-flex justify-content-center mt-5 align-items-center ">
-          <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt"></i>
+        <div className="container d-flex justify-content-center mt-5 ">
+          <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt"/>
           <input type="file" onChange={handleChange} accept="/image/*"></input>
+
           <button
+            disabled={!file}
             onClick={handleUpload}
             style={{ height: "50px" }}
             className="btn btn-dark mt-5 "
@@ -115,7 +127,9 @@ export const Completaperfil = () => {
             Sube tu Foto
           </button>
         </div>
-
+        <div className="d-flex justify-content-center">
+          {url && <img style={{ height: "200px", width: "200px" }} src={url} />}
+        </div>
         <div className="mt-5">
           <h3 className="text-center">Describenos tu Perfil</h3>
         </div>
@@ -259,7 +273,7 @@ export const Completaperfil = () => {
       </div>
       <div className="d-flex justify-content-center mt-4">
         <button
-          className="btn btn-dark mb-5"
+          className="btn btn-dark mb-5 text-white"
           type="submit"
           id="submit"
           onClick={onSubmit}

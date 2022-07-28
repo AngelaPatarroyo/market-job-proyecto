@@ -54,10 +54,8 @@ img {
   margin-top: 100px;
 }
 
-i {
-  padding: 20px;
-  padding-top: 50px;
-}
+
+
 
 #carouselExampleCaptions {
   margin-top: 100px;
@@ -78,3 +76,12 @@ i {
   margin-top: 100px;
 }
 
+#empresasconfian {
+  margin-top: 200px;
+}
+
+#perfilcontainer{
+
+  margin-top: 300px;
+  position: relative;
+}

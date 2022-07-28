@@ -40,16 +40,15 @@ export const Perfilbusqueda = () => {
           <h5>{store.perfilCompleto.experiencia}</h5>
 
           <h5>Idiomas:</h5>
-          <div className="col-3 mx-auto">
-            <ul>
+          <div className="d-flex justify-content-center">
+            <h5>
               {store.perfilCompleto?.idiomas?.map((item, index) => (
-                <li key={index}>{item.nombre}</li>
+                <h5 key={index}>{item.nombre}</h5>
               ))}
-            </ul>
+            </h5>
           </div>
 
-          <h5>Teléfono: {store.perfilCompleto.telefono}</h5>
-          <a
+          <h5>Teléfono:  <a
             className="text-decoration-none text-black mb-4"
             href={
               "https://web.whatsapp.com/send?phone=" +
@@ -57,8 +56,9 @@ export const Perfilbusqueda = () => {
             }
             target="_blank"
           >
-            <i className="fab fa-whatsapp"></i> Contactar por whatsapp
-          </a>
+            <i style={{color:"green", fontSize:"30px"}} className="fab fa-whatsapp"></i> 
+          </a>{store.perfilCompleto.telefono}</h5>
+         
           <div>
             <h5>Tarifa por Hora: ${store.perfilCompleto.tarifa}</h5>
             <div className="container d-flex justify-content-center">
@@ -89,13 +89,13 @@ export const Perfilbusqueda = () => {
 
       <div
         id="perfilcontainer"
-        className="container col-4 mt-5 pt-5"
-        style={{ width: "1000px", height: "500px" }}
+        className="container "
+        style={{ width: "1000px" }}
       >
-        <h3>Perfil</h3>
-        <p className="mt-5 mb-5">{store.perfilCompleto.descripcion}</p>
+        <h3>Perfil Professional:</h3>
+        <p className="mt-3 mb-5">{store.perfilCompleto.descripcion}</p>
       </div>
-      <div className="d-flex justify-content-center">
+      <div className="d-flex justify-content-center position-relative mb-5">
         <button type="button" className="btn btn-dark btn-lg col-4" onClick={actions?.addFavoritos(store?.perfilCompleto?.usuario_id)}>
           Agregar a Favoritos
         </button>

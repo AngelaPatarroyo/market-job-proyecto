@@ -30,7 +30,10 @@ export const Home = () => {
             </Link>
           </div>
         </div>
-        <div className="d-flex w-50">
+        <div
+          className="d-flex w-50 mb-5"
+          style={{ height: "300px", width: "200px" }}
+        >
           <div>
             <div
               id="carouselExampleCaptions"
@@ -61,28 +64,35 @@ export const Home = () => {
               </div>
               <div className="carousel-inner w-100">
                 <div className="carousel-item active">
-                  <img src={designer} className="d-block w-100" alt="..." />
+                  <img style={{height:"500px", width:"800px"}} src={designer} className="d-block w-100" alt="..." />
                   <div className="carousel-caption d-none d-md-block">
+                    
+                  </div>
+                  <div className="text-black text-center p-3">
                     <h5>First slide label</h5>
                     <p>
                       Some representative placeholder content for the first
                       slide.
                     </p>
-                  </div>
+                    </div>
                 </div>
                 <div className="carousel-item w-100">
-                  <img src={shirt} className="d-block w-100" alt="..." />
+                  <img style={{height:"500px", width:"800px"}} src={shirt} className="d-block w-100" alt="..." />
                   <div className="carousel-caption d-none d-md-block">
+                   
+                  </div>
+                  <div className="text-black text-center p-3">
                     <h5>Second slide label</h5>
                     <p>
                       Some representative placeholder content for the second
                       slide.
                     </p>
-                  </div>
+                    </div>
                 </div>
                 <div className="carousel-item w-100">
-                  <img src={work} className="d-block w-100" alt="..." />
-                  <div className="carousel-caption d-none d-md-block text-black bg-white">
+                  <img style={{height:"500px", width:"500px"}} src={work} className="d-block w-100" alt="..." />
+                  <div className="carousel-caption d-none d-md-block text-black"></div>
+                  <div className="text-center pb-3 ">
                     <h5>Third slide label</h5>
                     <p>
                       Some representative placeholder content for the third
@@ -99,10 +109,10 @@ export const Home = () => {
                 data-bs-slide="prev"
               >
                 <span
-                  className="carousel-control-prev-icon"
+                  className="carousel-control-prev-icon bg-black position-relativec"
                   aria-hidden="true"
                 ></span>
-                <span className="visually-hidden">Previous</span>
+                <span className="visually-hidden text-black">Previous</span>
               </button>
               <button
                 className="carousel-control-next"
@@ -111,8 +121,8 @@ export const Home = () => {
                 data-bs-slide="next"
               >
                 <span
-                  className="carousel-control-next-icon"
-                  aria-hidden="true"
+                  className="carousel-control-next-icon bg-black"
+                  aria-hidden="false"
                 ></span>
                 <span className="visually-hidden">Next</span>
               </button>
@@ -121,18 +131,21 @@ export const Home = () => {
         </div>
         <div className="pt-100px"></div>
       </div>
-      <div className="text-center empresas">
-        <h4>Estas son las empresas que confían en nosotros</h4>
+     
+
+      <div id="empresasconfian" className="text-center empresas p-3">
+        <h4 className="mt-5">Estas son las empresas que confían en nosotros</h4>
       </div>
-      <div className="text-center">
-        <i className="fab fa-apple fa-2x" />
-        <i className="fab fa-amazon fa-2x" />
-        <i className="fab fa-google fa-2x" />
-        <i className="fab fa-google-play fa-2x" />
-        <i className="fab fa-ebay fa-2x" />
-        <i className="fab fa-facebook fa-2x" />
-        <i className="fab fa-snapchat fa-2x" />
-        <i className="fab fa-cc-amex fa-2x" />
+    
+      <div className="text-center mb-5">
+        <i className="fab fa-apple fa-3x mt-3 pe-5" />
+        <i className="fab fa-amazon fa-3x mt-3 pe-5" />
+        <i className="fab fa-google fa-3x mt-3 pe-5" />
+        <i className="fab fa-google-play fa-3x mt-3 pe-5" />
+        <i className="fab fa-ebay fa-3x mt-3 pe-5" />
+        <i className="fab fa-facebook fa-3x mt-3 pe-5" />
+        <i className="fab fa-snapchat fa-3x mt-3 pe-5" />
+        <i className="fab fa-cc-amex fa-3x mt-3 pe-5" />
       </div>
     </div>
   );
