@@ -21,8 +21,8 @@ tasks:
         pipenv run upgrade &&
         python docs/assets/greeting.py back
     - command: >
-        ((sed -i /BACKEND_URL/d .env && echo "" >> .env && echo "BACKEND_URL=https://3001-${GITPOD_WORKSPACE_URL:8}" >> .env) || true) && 
-        npm install &&
+        ((sed -i /BACKEND_URL/d .env && echo "" >> .env && echo "END_URL=https://3001-${GITPOD_WORKSPACE_URL:8}" >> .env) || true) && 
+        npm install &&BACK
         python docs/assets/greeting.py front
       openMode: split-right
       

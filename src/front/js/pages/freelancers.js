@@ -22,15 +22,13 @@ export const Freelancers = () => {
           <h4>{store?.user?.tipo_freelancer}</h4>
 
           <h5>{store?.user?.experiencia}</h5>
-          <h5>Idiomas:</h5>
-          <div className="col-3 mx-auto">
-            <ul>
-              {store.user?.idiomas?.map((item, index) => (
-                <li key={index}>{item.nombre}</li>
-              ))}
-            </ul>
+          <h5 className="d-flex">Idiomas:  <h5 className="ms-2">{store.user?.idiomas?.map((item, index) => (
+                <h5 key={index}>{item.nombre}</h5>
+              ))}</h5></h5>
+          <div className="ms-5">
+            
           </div>
-          <h5>Tarifa por Hora: {store?.user?.tarifa}</h5>
+          <h5>Tarifa por Hora: ${store?.user?.tarifa}</h5>
           <div className="container d-grid gap-2 d-md w-50 row align-items-start p-0 mt-5">
             <button type="button" className="btn btn btn-dark">
               <a

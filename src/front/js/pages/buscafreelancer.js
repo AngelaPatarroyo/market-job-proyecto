@@ -1,7 +1,7 @@
 import React, { Profiler, useContext, useEffect, useState } from "react";
 import Foto from "../../img/Profile.png";
 import { Context } from "../store/appContext";
-import { Link } from "react-router-dom"
+import { Link } from "react-router-dom";
 
 export const Buscafreelancer = () => {
   const { store, actions } = useContext(Context);
@@ -101,35 +101,44 @@ export const Buscafreelancer = () => {
         <div className="container">
           <h2 className="d-flex justify-content-center mb-5">Resultados</h2>
           <div className="container">
+          <div className="row">
             {store.perfilesFreelancer.map((item, index) => (
-              <div
-                className="container d-flex border mb-5"
-                id="cartaperfil"
-                style={{ height: "250px", width: "350px" }}
-              >
-                <img
-                  className="mt-4 ms-3"
-                  style={{ height: "100px", width: "100px" }}
-                  src={Foto}
-                />
-                <div className="mt-4 mb-5">
-                  <h4 className="ms-4 text-left">{item.nombre}</h4>
-                  <h6 className="ms-4">{item.tipo_freelancer}</h6>
-                  <h6 className="ms-4">{item.experiencia}</h6>
-                  <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
-
-                 <Link className="text-decoration-none" target="_blank" to={`/perfilbusqueda/${item.id}`}>
-                  <button
-                    type="button"
-                    class="btn btn-dark d-flex justify-content-center mt-4 mb-5"
-
+              
+                <div className="col">
+                  <div
+                    className="container d-flex border mb-5"
+                    id="cartaperfil"
+                    style={{ height: "250px", width: "350px" }}
                   >
-                    Ver Perfil
-                  </button>
-                  </Link>
+                    <img
+                      className="mt-4 ms-3"
+                      style={{ height: "100px", width: "100px" }}
+                      src={Foto}
+                    />
+                    <div className="mt-4 mb-5">
+                      <h4 className="ms-4 text-left">{item.nombre}</h4>
+                      <h6 className="ms-4">{item.tipo_freelancer}</h6>
+                      <h6 className="ms-4">{item.experiencia}</h6>
+                      <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
+
+                      <Link
+                        className="text-decoration-none"
+                        target="_blank"
+                        to={`/perfilbusqueda/${item.id}`}
+                      >
+                        <button
+                          type="button"
+                          class="btn btn-dark d-flex justify-content-center mt-4 mb-5"
+                        >
+                          Ver Perfil
+                        </button>
+                      </Link>
+                    
+                  </div>
                 </div>
               </div>
-            ))}
+              
+            ))}</div>
           </div>
         </div>
       </div>

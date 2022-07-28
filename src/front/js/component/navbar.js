@@ -100,7 +100,7 @@ export const Navbar = () => {
               </Link>
               <button
                 type="button"
-                className="btn btn-dark"
+                className="btn btn-dark ms-3"
                 onClick={() => {
                   actions.logOut();
                   navigate("/")
