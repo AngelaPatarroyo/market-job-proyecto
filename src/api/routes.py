@@ -355,7 +355,7 @@ def cargar_datos():
         db.session.add(new_experiencias_3)
         db.session.add(new_experiencias_4)
 
-    usuarios= Usuario.query.all()
+    """ usuarios= Usuario.query.all()
     if not usuarios:
         new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
         new_usuario_2 = Usuario (id=2, correo= "maria@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
@@ -469,7 +469,7 @@ def cargar_datos():
         db.session.add(new_freelancer_idioma_21)
         db.session.add(new_freelancer_idioma_22)
         db.session.add(new_freelancer_idioma_23)
-
+ """
     db.session.commit()
     return jsonify({"msg": "Datos cargados"}), 200
 
