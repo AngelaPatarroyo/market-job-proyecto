@@ -101,13 +101,19 @@ def add_idioma():
     email_user = get_jwt_identity()
     id_freelancer = Usuario.query.filter_by(correo=email_user).first().id
     idioma_id = request.json.get("idioma_id", None)
-
-    idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
-    db.session.add(idioma_nuevo)
-    db.session.commit()
-    respuesta = {
-        "msg" : "idioma registrado"
-    }
+    idioma_query = FreelancerIdiomas.query.filter_by(idioma_id=int(idioma_id), id_freelancer=int(id_freelancer)).first()
+    if idioma_query is None:
+        idioma_nuevo = FreelancerIdiomas( idioma_id=int(idioma_id), id_freelancer=int(id_freelancer) )
+        db.session.add(idioma_nuevo)
+        db.session.commit()
+        respuesta = {
+            "msg" : "idioma registrado"
+        }
+    else:
+        respuesta = {
+            "msg" : "idioma ya registrado"
+        }
+    
     return jsonify(respuesta), 200
 
 @api.route('/get_experiencias', methods=['GET'])
@@ -168,24 +174,11 @@ def completar_registro():
 
 @api.route('/add_favorito/<int:id>/', methods=['POST'])
 @jwt_required()
-# def add_favorito(id):
-#     email_user = get_jwt_identity()
-#     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
-#     id_freelancer = id
-
-#     favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
-#     db.session.add(favorito_nuevo)
-#     db.session.commit()
-#     respuesta = {
-#         "msg" : "favorito agregado"
-#     }
-#     return jsonify(respuesta), 200
 def add_favorito(id):
     email_user = get_jwt_identity()
     id_empresa = Usuario.query.filter_by(correo=email_user).first().id
     id_freelancer = int(id)
     favorito_query = Favoritos.query.filter_by(id_freelancer = id_freelancer, id_empresa = id_empresa).first()
-    print(favorito_query)
     if favorito_query is None:
         favorito_nuevo = Favoritos( id_empresa=int(id_empresa), id_freelancer=int(id_freelancer) )
         db.session.add(favorito_nuevo)
@@ -374,7 +367,7 @@ def cargar_datos():
 
     usuarios= Usuario.query.all()
     if not usuarios:
-        new_usuario_1 = Usuario (id=1, correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
+        new_usuario_1 = Usuario (correo= "prueba@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Karen Vergara", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
         new_usuario_2 = Usuario (id=2, correo= "maria@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Maria Sanchéz", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
         new_usuario_3 = Usuario (id=3, correo= "andres123@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Andres Pérez", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)
         new_usuario_4 = Usuario (id=4, correo= "pablorestrepo@gmail.com", contrasena= '1234', is_active= True, rol= 1, nombre= "Pablo Restrepo", telefono= '+573006197027', complete= True, latitud= 6.1515344, longitud=-75.6153715)

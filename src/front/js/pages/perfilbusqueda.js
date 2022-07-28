@@ -16,6 +16,20 @@ export const Perfilbusqueda = () => {
       console.log(error);
     }); */
 
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    actions
+      .addFavoritos(store?.perfilCompleto?.usuario_id)
+      .then((resp) => {
+        console.log(resp);
+        // navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   useEffect(() => {
     if (params?.userid) {
       actions.getPerfilCompleto(Number(params?.userid));
@@ -74,7 +88,7 @@ export const Perfilbusqueda = () => {
 
                 <button type="button" className="btn btn btn-dark mb-5">
                   <a
-                   target="_blank"
+                    target="_blank"
                     className="text-decoration-none text-white"
                     href={store.perfilCompleto.linkedin}
                   >
@@ -96,7 +110,11 @@ export const Perfilbusqueda = () => {
         <p className="mt-5 mb-5">{store.perfilCompleto.descripcion}</p>
       </div>
       <div className="d-flex justify-content-center">
-        <button type="button" className="btn btn-dark btn-lg col-4" onClick={actions?.addFavoritos(store?.perfilCompleto?.usuario_id)}>
+        <button
+          type="button"
+          className="btn btn-dark btn-lg col-4"
+          onClick={onSubmit}
+        >
           Agregar a Favoritos
         </button>
       </div>
