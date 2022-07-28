@@ -44,7 +44,7 @@ const Layout = () => {
             <Route element={<Freelancers />} path="/perfil" />
             <Route
               element={<Completaperfil />}
-              path="/:userid/completaperfil"
+              path="/completaperfil"
             />
             <Route element={<Buscafreelancer />} path="/buscafreelancer" />
             <Route element={<Perfilbusqueda />} path="/perfilbusqueda/:userid" />

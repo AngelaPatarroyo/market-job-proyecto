@@ -40,7 +40,11 @@ export const Perfilbusqueda = () => {
     <div className="container position-static">
       <div id="freelancerscon" className="justify-content-center d-flex">
         <div className="w-50 ml-5 d-flex justify-content-center">
-          <img src={Profile} style={{ height: "350px", width: "350px" }} />
+          <img
+            className="rounded-circle"
+            src={store.perfilCompleto.imagen}
+            style={{ height: "350px", width: "350px" }}
+          />
         </div>
       </div>
       <div className="d-flex justify-content-center mt-5">
@@ -62,17 +66,24 @@ export const Perfilbusqueda = () => {
             </h5>
           </div>
 
-          <h5>Teléfono:  <a
-            className="text-decoration-none text-black mb-4"
-            href={
-              "https://web.whatsapp.com/send?phone=" +
-              store.perfilCompleto.telefono
-            }
-            target="_blank"
-          >
-            <i style={{color:"green", fontSize:"30px"}} className="fab fa-whatsapp"></i> 
-          </a>{store.perfilCompleto.telefono}</h5>
-         
+          <h5>
+            Teléfono:{" "}
+            <a
+              className="text-decoration-none text-black mb-4"
+              href={
+                "https://web.whatsapp.com/send?phone=" +
+                store.perfilCompleto.telefono
+              }
+              target="_blank"
+            >
+              <i
+                style={{ color: "green", fontSize: "30px" }}
+                className="fab fa-whatsapp"
+              ></i>
+            </a>
+            {store.perfilCompleto.telefono}
+          </h5>
+
           <div>
             <h5>Tarifa por Hora: ${store.perfilCompleto.tarifa}</h5>
             <div className="container d-flex justify-content-center">
@@ -86,7 +97,7 @@ export const Perfilbusqueda = () => {
                   </a>
                 </button>
 
-                <button type="button" className="btn btn btn-dark mb-5">
+                <button type="button" className="btn btn btn-dark mb-2">
                   <a
                     target="_blank"
                     className="text-decoration-none text-white"
@@ -103,20 +114,22 @@ export const Perfilbusqueda = () => {
 
       <div
         id="perfilcontainer"
-        className="container "
+        className="container border p-3 mb-5"
         style={{ width: "1000px" }}
       >
-        <h3>Perfil Professional:</h3>
-        <p className="mt-3 mb-5">{store.perfilCompleto.descripcion}</p>
-      </div>
-      <div className="d-flex justify-content-center position-relative mb-5">
-        <button
-          type="button"
-          className="btn btn-dark btn-lg col-4"
-          onClick={onSubmit}
-        >
-          Agregar a Favoritos
-        </button>
+        <div>
+          <h3>Perfil Professional:</h3>
+          <p className="mt-3 mb-4">{store.perfilCompleto.descripcion}</p>
+        </div>
+        <div className="d-flex justify-content-center position-relative mb-5">
+          <button
+            type="button"
+            className="btn btn-dark btn-lg col-4"
+            onClick={onSubmit}
+          >
+            Agregar a Favoritos
+          </button>
+        </div>
       </div>
     </div>
   );
