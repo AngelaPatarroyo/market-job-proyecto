@@ -88,6 +88,15 @@ export const Completaperfil = () => {
     const body = {
       idioma_id: idiomaSelected,
     };
+    console.log(idiomaSelected)
+    let aux = store.idiomasFreelancer.filter(
+      (item) => item.id == idiomaSelected
+    );
+    if (aux.length > 0) {
+      console.log("aqui")
+      return true
+    }
+    
     actions.agregarIdioma(body).then((resp) => {
       console.log(resp);
     });
@@ -115,7 +124,7 @@ export const Completaperfil = () => {
           </div>
         </div>
         <div className="container d-flex justify-content-center mt-5 ">
-          <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt"/>
+          <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt" />
           <input type="file" onChange={handleChange} accept="/image/*"></input>
 
           <button
@@ -197,7 +206,11 @@ export const Completaperfil = () => {
           <select
             className="form-select w-25"
             aria-label="Default select example"
-            onClick={(e) => setIdiomaSelected(e.target.value)}
+            onClick={(e) => {
+             
+                setIdiomaSelected(e.target.value);
+              
+            }}
           >
             <option selected>Selecciona Idioma</option>
 
