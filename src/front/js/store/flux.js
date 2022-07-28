@@ -83,8 +83,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 
       addFavoritos: async (id) => {
         let idFavoritos = id;
-        console.log(idFavoritos)
-        console.log("aqui estan favoritos")
+        console.log(idFavoritos);
+        console.log("aqui estan favoritos");
         try {
           const resp = await fetch(
             process.env.BACKEND_URL + "/api/add_favorito/" + idFavoritos,
@@ -98,7 +98,6 @@ const getState = ({ getStore, getActions, setStore }) => {
           );
           const data = await resp.json();
 
-          console.log(data);
           return data;
         } catch (error) {
           console.log("Error al Cargar Favoritos", error);
@@ -106,8 +105,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       deleteFavorito: async (id) => {
         let idFavorito = id;
-        console.log(idFavorito)
-        console.log("aqui estan favoritos")
+        console.log(idFavorito);
+        console.log("aqui estan favoritos");
         try {
           const resp = await fetch(
             process.env.BACKEND_URL + "/api/delete_favorito/" + idFavorito,
@@ -149,7 +148,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         }
       },
       verFavoritos: async () => {
-        console.log("prueba")
+        console.log("prueba");
         try {
           const resp = await fetch(
             process.env.BACKEND_URL + "/api/ver_favoritos",
