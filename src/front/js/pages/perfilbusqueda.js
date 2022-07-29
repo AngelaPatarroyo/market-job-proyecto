@@ -18,7 +18,7 @@ export const Perfilbusqueda = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
+    
     actions
       .addFavoritos(store?.perfilCompleto?.usuario_id)
       .then((resp) => {
@@ -28,6 +28,7 @@ export const Perfilbusqueda = () => {
       .catch((error) => {
         console.log(error);
       });
+      window.scrollTo(0,0)
   };
 
   useEffect(() => {
@@ -55,7 +56,7 @@ export const Perfilbusqueda = () => {
           <h1>{store.perfilCompleto.nombre}</h1>
           <h4>{store.perfilCompleto.tipo_freelancer}</h4>
 
-          <h5>{store.perfilCompleto.experiencia}</h5>
+          <h4>{store.perfilCompleto.experiencia}</h4>
 
           <h5>Idiomas:</h5>
           <div className="d-flex justify-content-center">
@@ -78,7 +79,7 @@ export const Perfilbusqueda = () => {
             >
               <i
                 style={{ color: "green", fontSize: "30px" }}
-                className="fab fa-whatsapp"
+                className="fab fa-whatsapp pe-2 ps-2"
               ></i>
             </a>
             {store.perfilCompleto.telefono}
@@ -121,15 +122,15 @@ export const Perfilbusqueda = () => {
           <h3>Perfil Professional:</h3>
           <p className="mt-3 mb-4">{store.perfilCompleto.descripcion}</p>
         </div>
-        <div className="d-flex justify-content-center position-relative mb-5">
-          <button
-            type="button"
-            className="btn btn-dark btn-lg col-4"
-            onClick={onSubmit}
-          >
-            Agregar a Favoritos
-          </button>
-        </div>
+      </div>
+      <div className="d-flex justify-content-center position-relative mb-5">
+        <button
+          type="button"
+          className="btn btn-dark btn-lg col-4 position-static "
+          onClick={onSubmit}
+        >
+          Agregar a Favoritos
+        </button>
       </div>
     </div>
   );

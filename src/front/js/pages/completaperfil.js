@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import storage from "../firebaseConfig";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
+
 import "../../styles/home.css";
 
 export const Completaperfil = () => {
@@ -93,7 +94,7 @@ export const Completaperfil = () => {
       (item) => item.id == idiomaSelected
     );
     if (aux.length > 0) {
-      console.log("aqui")
+     
       return true
     }
     
@@ -123,20 +124,23 @@ export const Completaperfil = () => {
             ))}
           </div>
         </div>
-        <div className="container d-flex justify-content-center mt-5 ">
-          <i style={{ fontSize: "80px" }} class="fas fa-cloud-upload-alt" />
-          <input type="file" onChange={handleChange} accept="/image/*"></input>
-
+        <div className="container d-flex justify-content-center mt-5">
+          <div className="custom-file">
+         
+          <input className="btn btn-dark mt-5 me-3 mb-5" type="file" onChange={handleChange} accept="/image/*"></input>
+          
+          </div>
+          
           <button
             disabled={!file}
             onClick={handleUpload}
-            style={{ height: "50px" }}
+            style={{ height: "45px" }}
             className="btn btn-dark mt-5 "
           >
             Sube tu Foto
           </button>
         </div>
-        <div className="d-flex justify-content-center">
+        <div className="d-flex justify-content-center text-white">
           {url && <img style={{ height: "200px", width: "200px" }} src={url} />}
         </div>
         <div className="mt-5">
@@ -164,17 +168,17 @@ export const Completaperfil = () => {
               className="input-group-text aoptiongn-items-center"
               style={{ height: "50px" }}
               id="basic-addon1"
-            >
-              <i className="fab fa-optionnkedin"></i>
+            > Linkedin
+              <i style={{ fontSize: "30px" }} className="fab fa-linkedin ps-3 pe-3"/>
 
               <input
                 style={{ width: "350px" }}
                 type="text"
                 className="form-control"
-                placeholder="Perfil de Linkedin"
+                placeholder="(Opcional)"
                 value={linkedin}
                 onChange={(e) => setLinkedin(e.target.value)}
-              />
+              /> 
             </span>
           </div>
 

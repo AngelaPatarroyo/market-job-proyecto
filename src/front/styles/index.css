@@ -82,6 +82,20 @@ img {
 
 #perfilcontainer{
 
-  margin-top: 300px;
+  margin-top: 200px;
+  position:static;
+}
+
+#perfilcont{
+  margin-top: 100px;
   position: relative;
+}
+
+#buttonnavbar{
+  margin-right: 400px;
+  margin-left: 50px;
+}
+
+#navbarlogin{
+  margin-left: 350px;
 }

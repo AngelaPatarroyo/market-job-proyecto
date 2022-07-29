@@ -51,12 +51,11 @@ export const Footer = () => (
         >
           <i className="fab fa-github"></i>
         </a>
+        <p className="pt-4">© 2022 Copyright:  Made with ❤️ by Team Colombia</p> 
      </section>
      
     </div>
-    <div className="text-center bg-black p-3">
-   <p>© 2022 Copyright:  Made with ❤️ by Team Colombia</p> 
-    </div>
+   
   
   </footer>
 );

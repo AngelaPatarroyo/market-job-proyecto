@@ -52,9 +52,9 @@ export const Buscafreelancer = () => {
             >
               <option selected>Selecciona tipo de Freelancer</option>
 
-              {store.tipoFreelancer.map((item, index) => (
-                <option value={item.id} key={index}>
-                  {item.tipo}
+              {store?.tipoFreelancer?.map((item, index) => (
+                <option value={item?.id} key={index}>
+                  {item?.tipo}
                 </option>
               ))}
             </select>
@@ -65,21 +65,21 @@ export const Buscafreelancer = () => {
             <h3 className="mt-4">Años de Experiencia</h3>
           </div>
           <div className="d-flex justify-content-center p-5">
-            {store.experiencias.map((item, index) => (
+            {store?.experiencias?.map((item, index) => (
               <div className="form-check">
                 <input
                   className="form-check-input"
                   type="radio"
                   name="flexRadioDefault"
                   id="flexRadioDefault1"
-                  onClick={() => setIdExperiencia(item.id)}
+                  onClick={() => setIdExperiencia(item?.id)}
                 />
                 <label
                   className="form-check-label me-5"
                   for="flexRadioDefault1"
                 >
-                  <option value={item.id} key={index}>
-                    {item.experiencia}
+                  <option value={item?.id} key={index}>
+                    {item?.experiencia}
                   </option>
                 </label>
               </div>
@@ -101,9 +101,8 @@ export const Buscafreelancer = () => {
         <div className="container">
           <h2 className="d-flex justify-content-center mb-5">Resultados</h2>
           <div className="container">
-          <div className="row">
-            {store.perfilesFreelancer.map((item, index) => (
-              
+            <div className="row">
+              {store?.perfilesFreelancer?.map((item, index) => (
                 <div className="col">
                   <div
                     className="container d-flex border mb-5"
@@ -116,15 +115,14 @@ export const Buscafreelancer = () => {
                       src={item.imagen}
                     />
                     <div className="mt-4 mb-5">
-                      <h4 className="ms-4 text-left">{item.nombre}</h4>
-                      <h6 className="ms-4">{item.tipo_freelancer}</h6>
-                      <h6 className="ms-4">{item.experiencia}</h6>
-                      <h6 className="ms-4">Tarifa por hora: ${item.tarifa}</h6>
+                      <h4 className="ms-4 text-left">{item?.nombre}</h4>
+                      <h6 className="ms-4">{item?.tipo_freelancer}</h6>
+                      <h6 className="ms-4">{item?.experiencia}</h6>
+                      <h6 className="ms-4">Tarifa por hora: ${item?.tarifa}</h6>
 
                       <Link
                         className="text-decoration-none"
-                        target="_blank"
-                        to={`/perfilbusqueda/${item.id}`}
+                        to={`/perfilbusqueda/${item?.id}`}
                       >
                         <button
                           type="button"
@@ -133,12 +131,11 @@ export const Buscafreelancer = () => {
                           Ver Perfil
                         </button>
                       </Link>
-                    
+                    </div>
                   </div>
                 </div>
-              </div>
-              
-            ))}</div>
+              ))}
+            </div>
           </div>
         </div>
       </div>
