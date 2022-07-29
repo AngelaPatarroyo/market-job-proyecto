@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 export const Navbar = () => {
   const { store, actions } = useContext(Context);
   const navigate = useNavigate();
+  console.log(store?.user);
   return (
     <nav className="navbar navbar-expand-lg bg-black ">
       <div className="container-fluid ">
@@ -36,9 +37,7 @@ export const Navbar = () => {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link text-white" href="#">
-                Soluciones
-              </a>
+              <a className="nav-link text-white" href="#"></a>
             </li>
             <li className="nav-item">
               <a className="nav-link text-white" href="#">
@@ -62,57 +61,72 @@ export const Navbar = () => {
               >
                 <li>
                   <a className="dropdown-item" href="#">
-                    Diseñadores
+                    Digital Marketing
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    Videografos
+                    Programación y Tecnologia
                   </a>
                 </li>
                 <li>
                   <a className="dropdown-item" href="#">
-                    Digital Marketers
+                    Digital Marketing
+                  </a>
+                </li>
+                <li>
+                  <a className="dropdown-item" href="#">
+                    Producción de video
                   </a>
                 </li>
               </ul>
             </li>
           </ul>
-
-          <div className="container row col-md-8 col-md-offset-2 text-right">
-            <form className="form-inline my-2 my-lg-0 text-right">
-              <div className="d-flex justify-content-end">
-                <input
-                  className="form-control w-50"
-                  type="search"
-                  placeholder="Buscar Freelancers"
-                  aria-label="Search"
-                ></input>
-              </div>
-            </form>
-          </div>
-          {store?.user?.nombre ? (
+          {localStorage.getItem("accessToken") && (
             <div>
-              <Link to="/perfil">
-                <button type="button" className="btn btn-dark">
-                  Mi Perfil
+              <Link to="/buscafreelancer">
+                <button
+                  id="buttonnavbar"
+                  className="btn btn-dark w-100 text-center"
+                >
+                  Encuentra tu match perfecto
+                  <i className="ps-2 fas fa-users fa-2x"></i>
                 </button>
               </Link>
-              <button
-                type="button"
-                className="btn btn-dark ms-3"
-                onClick={() => {
-                  actions.logOut();
-                  navigate("/")
-                }}
-              >
-                Logout
-              </button>
+            </div>
+          )}
+
+          {localStorage.getItem("accessToken") ? (
+            <div className="d-flex justify-content-end">
+              <div>
+                <Link
+                  className="btn btn-dark"
+                  to={
+                    localStorage?.getItem("rol") == 1
+                      ? "/perfil"
+                      : "/empresafavoritos"
+                  }
+                  id="navbarlogin"
+                  type="button"
+                >
+                  Mi Perfil
+                </Link>
+                <button
+                  type="button"
+                  className="btn btn-dark ms-3"
+                  onClick={() => {
+                    actions.logOut();
+                    navigate("/");
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
             </div>
           ) : (
-            <div>
+            <div className="w-100 text-right d-flex justify-content-end pe-5">
               <Link to="/login">
-                <button type="button" className="btn btn-dark">
+                <button id="navbarlogin" type="button" className="btn btn-dark">
                   Login
                 </button>
               </Link>

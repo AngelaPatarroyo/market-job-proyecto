@@ -1,20 +1,21 @@
 import React, { useContext, useEffect } from "react";
 import "../../styles/home.css";
 import { Context } from "../store/appContext";
-import { Link, useParams } from "react-router-dom";
-import Foto from "../../img/Profile.png";
+import { Link, useParams, useLocation } from "react-router-dom";
 
 export const Empresafavoritos = () => {
   const { store, actions } = useContext(Context);
+  
 
   useEffect(() => {
     actions.verFavoritos();
-  }, []);
-
+    actions.getPerfilCompleto(localStorage.getItem("id"), true);
+  }, [localStorage.getItem("id")]);
+console.log(store.user);
   return (
     <div>
       <div className="container mt-5 d-flex">
-        <h1>Hola Apple</h1>
+        <h1>Hola Apple Network</h1>
       </div>
       <div>
         <h5 className="container mt-5">
@@ -31,9 +32,9 @@ export const Empresafavoritos = () => {
                 style={{ height: "250px", width: "400px" }}
               >
                 <img
-                  className="mt-5 ms-3 d-flex"
+                  className="mt-5 ms-3 d-flex rounded-circle"
                   style={{ height: "100px", width: "100px" }}
-                  src={Foto}
+                  src={item.imagen}
                 />
                 <div className="mt-5 mb-3">
                   <h4 className="ms-4 text-left">{item.nombre}</h4>
@@ -43,8 +44,9 @@ export const Empresafavoritos = () => {
                   <div className="d-flex justify-content-center pb-4">
                     <Link
                       className="text-decoration-none container fluid"
-                      target="_blank"
-                      to={`/perfilbusqueda/${item.id}`}
+                      
+                      to={`/perfilbusqueda/${item.id}#`}
+                      
                     >
                       <button
                         type="button"
@@ -56,6 +58,7 @@ export const Empresafavoritos = () => {
                     <button
                       value={item.id_favorito}
                       onClick={(e) => {
+                        
                         const function1 = actions?.deleteFavorito(
                           e.target.value
                         );

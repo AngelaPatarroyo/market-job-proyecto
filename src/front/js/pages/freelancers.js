@@ -69,6 +69,7 @@ export const Freelancers = () => {
         <p className="mt-5 mb-5">{store?.user?.descripcion}</p>
         </div>
       </div>
+      
     </div>
   );
 };

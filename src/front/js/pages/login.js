@@ -23,15 +23,16 @@ export const Login = () => {
       .login(body)
       .then((resp) => {
         console.log(resp);
+        localStorage.setItem("rol", resp.rol)
        if (resp.rol==1&&resp.complete==false) {
         //redirigimos a completar la data
         navigate("/..")
        } else if (resp.rol==1){
         //redirigimos al freelancer con sus datos completos a su profile
-        navigate("/..")
+        navigate(`/?id=${resp.id}`)
        } else if (resp.rol==2){
         //redirigimos a la empresa a su página
-        navigate("/..")
+        navigate(`/empresafavoritos?id=${resp.id}`)
        }
        })
       .catch((error) => {

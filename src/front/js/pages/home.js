@@ -22,13 +22,27 @@ export const Home = () => {
             mejor se adapten a tus necesidas y si eres un <b>freelance</b>{" "}
             buscando trabajar para una empreza calificada, este es tu lugar
           </p>
+
+          {localStorage.getItem("accessToken") ? (
           <div className="d-grid col-6">
+          <Link to="/completaperfil">
+            <button type="button" className="btn btn-default text-white">
+              Completa tu Perfil
+            </button>
+          </Link>
+        </div>
+
+
+          ): (
+            <div className="d-grid col-6">
             <Link to="/signup">
               <button type="button" className="btn btn-default text-white">
                 Registrate Aquí
               </button>
             </Link>
           </div>
+          )
+        }
         </div>
         <div
           className="d-flex w-50 mb-5"
@@ -37,7 +51,7 @@ export const Home = () => {
           <div>
             <div
               id="carouselExampleCaptions"
-              className="carousel slide float-end"
+              className="carousel slide "
               data-bs-ride="carousel"
             >
               <div className="carousel-indicators ">
@@ -62,43 +76,21 @@ export const Home = () => {
                   aria-label="Slide 3"
                 ></button>
               </div>
-              <div className="carousel-inner w-100">
+              <div
+                className="carousel-inner w-100"
+                style={{ height: "500px", width: "1000px" }}
+              >
                 <div className="carousel-item active">
-                  <img style={{height:"500px", width:"800px"}} src={designer} className="d-block w-100" alt="..." />
-                  <div className="carousel-caption d-none d-md-block">
-                    
-                  </div>
-                  <div className="text-black text-center p-3">
-                    <h5>First slide label</h5>
-                    <p>
-                      Some representative placeholder content for the first
-                      slide.
-                    </p>
-                    </div>
+                  <img src={designer} className="d-block w-100" alt="..." />
+                  <div className="carousel-caption d-none d-md-block"></div>
                 </div>
                 <div className="carousel-item w-100">
-                  <img style={{height:"500px", width:"800px"}} src={shirt} className="d-block w-100" alt="..." />
-                  <div className="carousel-caption d-none d-md-block">
-                   
-                  </div>
-                  <div className="text-black text-center p-3">
-                    <h5>Second slide label</h5>
-                    <p>
-                      Some representative placeholder content for the second
-                      slide.
-                    </p>
-                    </div>
+                  <img src={shirt} className="d-block w-100" alt="..." />
+                  <div className="carousel-caption d-none d-md-block"></div>
                 </div>
                 <div className="carousel-item w-100">
-                  <img style={{height:"500px", width:"500px"}} src={work} className="d-block w-100" alt="..." />
+                  <img src={work} className="d-block w-100" alt="..." />
                   <div className="carousel-caption d-none d-md-block text-black"></div>
-                  <div className="text-center pb-3 ">
-                    <h5>Third slide label</h5>
-                    <p>
-                      Some representative placeholder content for the third
-                      slide.
-                    </p>
-                  </div>
                 </div>
               </div>
 
@@ -131,12 +123,11 @@ export const Home = () => {
         </div>
         <div className="pt-100px"></div>
       </div>
-     
 
       <div id="empresasconfian" className="text-center empresas p-3">
         <h4 className="mt-5">Estas son las empresas que confían en nosotros</h4>
       </div>
-    
+
       <div className="text-center mb-5">
         <i className="fab fa-apple fa-3x mt-3 pe-5" />
         <i className="fab fa-amazon fa-3x mt-3 pe-5" />
