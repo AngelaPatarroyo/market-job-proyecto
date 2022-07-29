@@ -5,3 +5,35 @@
     one more css for each page that will contain the selected used 
     on that page only (the ones not reused in other pages).
 */
+#pais {
+  width: 11.85rem;
+  margin: auto;
+}
+
+select:required:invalid {
+  color: #666;
+}
+
+input {
+  padding: 0.2rem;
+}
+#isFreelancer {
+  width: min-content;
+  margin: auto;
+}
+#codigo {
+  border-color: rgb(0, 0, 0);
+  outline-color: black;
+}
+#submit {
+  color: black;
+}
+
+#contenedor {
+  background-color: rgb(226, 224, 224);
+}
+
+#con2 {
+  box-shadow: 10px 10px 10px 10px rgb(188, 187, 187);
+}
+
